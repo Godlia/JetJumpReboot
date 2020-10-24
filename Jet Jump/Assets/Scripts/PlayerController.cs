@@ -2,67 +2,88 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject Player;
-    public float speed = 10f;
-    public Rigidbody2D rb;
+    public float moveSpeed = 3f;
 
-    public float fuelregen = 0.08f;
-    public float consumption = -0.1f;
-    public bool IsGrounded = true;
-    public float jetpackforce = 20f;
-    public float jetpackfuel = 1f;
-    public float maxfuel = 1f;
+    private Rigidbody2D rb;
+    private float MoveInput;
 
-    // Start is called before the first frame update
-    void Start()
+    private bool isFlying = false;
+
+    public float jetpower = 20f;
+    public float maxfuel = 10f;
+    private float fuel = 10f;
+    public float fuelregen = 1.5f;
+    public float consumption = 0.2f;
+
+    private Collider2D[] isGrounded = new Collider2D[1];
+
+
+    [SerializeField]
+    private float boxLength;
+    [SerializeField]
+    private float boxHeight;
+    [SerializeField]
+    private Transform groundPosition;
+    [SerializeField]
+    private LayerMask groundLayer;
+
+    public Slider Slider;
+
+    private void Awake()
     {
-        rb = Player.GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+        fuel = maxfuel;
     }
 
     private void Update()
     {
-        {
-            if(IsGrounded == true);
-            jetpackfuel = jetpackfuel + fuelregen;
-            if (jetpackfuel >= maxfuel)
-                jetpackfuel = maxfuel;
-
-            Debug.Log(jetpackfuel);
-        }
+        MoveInput = Input.GetAxis("Horizontal");
+        isFlying = Input.GetKey(KeyCode.Space);
+        Debug.Log(fuel);
+        Debug.Log(isGrounded);
+        Debug.Log(isFlying);
+        Slider.value = fuel;
+        
     }
 
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        IsGrounded = true;
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        IsGrounded = false;
-    }
     private void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.RightArrow))
-            rb.AddForce(Vector2.right * speed);
-    
-        if (Input.GetKey(KeyCode.LeftArrow))
-            rb.AddForce(Vector2.left * speed);
+        
 
-        if(jetpackfuel > 0.2)
+        isGrounded[0] = null;
+        Physics2D.OverlapBoxNonAlloc(groundPosition.position, new Vector2(boxLength, boxHeight), 0, isGrounded, groundLayer);
+
+        if (isGrounded[0]) {
+            fuel = fuel * fuelregen;
+        }
+
+        if (fuel > maxfuel) {
+            fuel = maxfuel;
+        }
+
+            rb.velocity = new Vector2(MoveInput * moveSpeed, rb.velocity.y);
+
+        if (fuel > 2f)
         {
-            if (Input.GetKey(KeyCode.UpArrow))
-                rb.AddForce(Vector2.up * jetpackforce);
-            jetpackfuel = jetpackfuel + consumption;
-
+            if (isFlying)
+            {
+                rb.AddForce(Vector2.up * jetpower);
+                fuel = fuel - consumption;
+            }
         }
     }
 
-
-
-
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(groundPosition.position, new Vector2(boxLength, boxHeight));
+    }
 }
