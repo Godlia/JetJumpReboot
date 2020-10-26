@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
             rb.velocity = new Vector2(MoveInput * moveSpeed, rb.velocity.y);
 
-        if (fuel > 2f)
+        if (fuel >= 0.1f)
         {
             if (isFlying)
             {
