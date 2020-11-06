@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+
     public float moveSpeed = 3f;
+    public Transform playerpos;
 
     private Rigidbody2D rb;
     private float MoveInput;
@@ -16,11 +19,11 @@ public class PlayerController : MonoBehaviour
     public float jetpower = 20f;
     public float maxfuel = 10f;
     private float fuel = 10f;
-    public float fuelregen = 1.5f;
+    public float fuelregen = 0.02f;
     public float consumption = 0.2f;
 
     private Collider2D[] isGrounded = new Collider2D[1];
-
+    public GameObject myPrefab;
 
     [SerializeField]
     private float boxLength;
@@ -30,6 +33,8 @@ public class PlayerController : MonoBehaviour
     private Transform groundPosition;
     [SerializeField]
     private LayerMask groundLayer;
+    [SerializeField]
+    private GameObject playertag;
 
     public Slider Slider;
 
@@ -47,9 +52,6 @@ public class PlayerController : MonoBehaviour
     {
         MoveInput = Input.GetAxis("Horizontal");
         isFlying = Input.GetKey(KeyCode.Space);
-        Debug.Log(fuel);
-        Debug.Log(isGrounded);
-        Debug.Log(isFlying);
         Slider.value = fuel;
         
     }
@@ -62,7 +64,7 @@ public class PlayerController : MonoBehaviour
         Physics2D.OverlapBoxNonAlloc(groundPosition.position, new Vector2(boxLength, boxHeight), 0, isGrounded, groundLayer);
 
         if (isGrounded[0]) {
-            fuel = fuel * fuelregen;
+            fuel = fuel + fuelregen;
         }
 
         if (fuel > maxfuel) {
