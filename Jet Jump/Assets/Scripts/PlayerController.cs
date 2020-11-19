@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
         MoveInput = Input.GetAxis("Horizontal");
         isFlying = Input.GetKey(KeyCode.Space);
         Slider.value = fuel;
-        
+        Debug.Log(rb.velocity);
     }
 
     private void FixedUpdate()
@@ -72,6 +72,7 @@ public class PlayerController : MonoBehaviour
         }
 
             rb.velocity = new Vector2(MoveInput * moveSpeed, rb.velocity.y);
+        
 
         if (fuel >= 0.1f)
         {
