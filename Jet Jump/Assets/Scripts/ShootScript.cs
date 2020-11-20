@@ -30,16 +30,18 @@ public class ShootScript : MonoBehaviour
         Vector2 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         direction = MousePos - (Vector2)Gun.position;
         //FaceMouse();
-        
-        if(Input.GetMouseButton(0)) {
-            if(Time.time > readyForNextShot)
+
+        if (Input.GetMouseButton(0))
+        {
+            if (Time.time > readyForNextShot)
             {
                 readyForNextShot = Time.time + 1 / fireRate;
                 shoot();
             }
         }
-
     }
+
+
 
     void FaceMouse()
     {
