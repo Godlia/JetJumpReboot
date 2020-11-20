@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class ShootScript : MonoBehaviour
 {
+    public GameObject Player;
     public Transform Gun;
     Vector2 direction;
     public GameObject Bullet;
     public float bulletspeed;
     public KeyCode shootKey;
     public Transform shootPoint;
+    public AudioSource Source;
+
 
     public float fireRate;
     public float readyForNextShot;
@@ -17,9 +20,8 @@ public class ShootScript : MonoBehaviour
     public ParticleSystem muzzleFlash;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
     }
 
     // Update is called once per frame
@@ -51,6 +53,6 @@ public class ShootScript : MonoBehaviour
         //Instantiate(muzzleFlash, shootPoint.position, shootPoint.rotation); Destroy(muzzleFlash, 1f);
         Destroy(BulletIns, 2);
         gunAnimator.SetTrigger("Shoot");
-
+        Source.Play();
     } 
 }

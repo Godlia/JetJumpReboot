@@ -41,10 +41,6 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-    }
-
-    private void Start()
-    {
         fuel = maxfuel;
     }
 
@@ -67,11 +63,9 @@ public class PlayerController : MonoBehaviour
             fuel = fuel + fuelregen;
         }
 
-        if (fuel > maxfuel) {
-            fuel = maxfuel;
-        }
+        fuel = fuel > maxfuel ? maxfuel : fuel;
 
-            rb.velocity = new Vector2(MoveInput * moveSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(MoveInput * moveSpeed, rb.velocity.y);
         
 
         if (fuel >= 0.1f)

@@ -5,6 +5,9 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     public GameObject Enemy;
+    public Transform playerPos;
+    public Transform currentPos;
+    Vector2 direction;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +17,7 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
