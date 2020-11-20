@@ -134,9 +134,10 @@ GameObject:
   - component: {fileID: 113815496}
   - component: {fileID: 113815495}
   - component: {fileID: 113815494}
+  - component: {fileID: 113815498}
+  - component: {fileID: 113815497}
   - component: {fileID: 113815493}
   - component: {fileID: 113815492}
-  - component: {fileID: 113815497}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -288,8 +289,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 113815491}
-  shootKey: 101
   sp: {fileID: 113815495}
+--- !u!114 &113815498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113815491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f13590312dafc5e4486ebf1dbeca43b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gun: {fileID: 2141910114}
+  Bullet: {fileID: 4600443133250700920, guid: 9dad415fc445c0542bc72d14b9955ed7, type: 3}
+  bulletspeed: 1200
+  shootKey: 323
+  shootPoint: {fileID: 299637460}
+  fireRate: 1
+  readyForNextShot: 0
+  gunAnimator: {fileID: 2141910118}
+  muzzleFlash: {fileID: 1398292601125362386, guid: b6a094cfa9dec92478f9c2506add5a17, type: 3}
+--- !u!1 &299637459
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 299637460}
+  m_Layer: 0
+  m_Name: Barrel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &299637460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 299637459}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.483, y: 0.155, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2141910114}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &301279125
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,8 +1114,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2141910114}
   - component: {fileID: 2141910115}
-  - component: {fileID: 2141910116}
   - component: {fileID: 2141910117}
+  - component: {fileID: 2141910118}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -1082,7 +1133,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.83, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
-  m_Children: []
+  m_Children:
+  - {fileID: 299637460}
   m_Father: {fileID: 1667417516}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1137,21 +1189,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2141910116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2141910113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d506d7e3e7feda4284bb3a96324bf24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  shootKey: 0
-  sp: {fileID: 0}
 --- !u!61 &2141910117
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1165,7 +1202,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.13, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1176,5 +1213,24 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.35, y: 0.38}
   m_EdgeRadius: 0
+--- !u!95 &2141910118
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141910113}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e21cf953f97bd5b44aa201f161680dd9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
