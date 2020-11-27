@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-
+    // Dette er bare masse variable man kan endre i spillet
     public float moveSpeed = 3f;
     public Transform playerpos;
 
@@ -40,21 +40,22 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        //Bare setter noen variabler
         rb = GetComponent<Rigidbody2D>();
         fuel = maxfuel;
     }
 
     private void Update()
     {
+        //alt medbevegelse og fuel-bar
         MoveInput = Input.GetAxis("Horizontal");
         isFlying = Input.GetKey(KeyCode.Space);
         Slider.value = fuel;
-        Debug.Log(rb.velocity);
     }
 
     private void FixedUpdate()
     {
-        
+        //fysikk - Jetpack, fuel og bevegelse
 
         isGrounded[0] = null;
         Physics2D.OverlapBoxNonAlloc(groundPosition.position, new Vector2(boxLength, boxHeight), 0, isGrounded, groundLayer);
@@ -80,6 +81,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        //Lager en boks som sjekker om jeg er i kontakt med et objekt med taggen "Ground"
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(groundPosition.position, new Vector2(boxLength, boxHeight));
     }

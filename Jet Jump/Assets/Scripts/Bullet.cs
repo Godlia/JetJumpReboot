@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public GameObject BulletPrfb;
+
     // Start is called before the first frame update
     void Start()
-    {
-        
+    { 
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -16,13 +17,17 @@ public class Bullet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Ground")
+
+        if (collision.gameObject.tag.Equals("Ground"))
         {
-            Destroy(Bullet);
+            Destroy(BulletPrfb);
+        }
+        if (collision.gameObject.tag.Equals("Enemy"))
+        {
+            Destroy(BulletPrfb);
         }
 
-        if (collision)
     }
 }
