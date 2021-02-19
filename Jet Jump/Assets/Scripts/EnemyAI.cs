@@ -4,27 +4,43 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    public GameObject Enemy;
-    public Transform playerPos;
-    public Transform currentPos;
-    Vector2 direction;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
+	[SerializeField]
+	GameObject bullet;
 
-    }
+	float fireRate;
+	float nextFire;
+	public float health = 20f;
+	public float bulldmg = 5f;
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Bullet")
-        {
-            Destroy(Enemy);
-        }
-    }
+	// Use this for initialization
+	void Start()
+	{
+		fireRate = 1f;
+		nextFire = Time.time;
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+		CheckIfTimeToFire();
+	}
+
+	void CheckIfTimeToFire()
+	{
+		if (Time.time > nextFire)
+		{
+			//Instantiate(bullet, transform.position, Quaternion.identity);
+			nextFire = Time.time + fireRate;
+		}
+
+	}
+
+	void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.gameObject.tag == "Bullet")
+		{
+			Destroy(gameObject);
+		}
+	}
 }
