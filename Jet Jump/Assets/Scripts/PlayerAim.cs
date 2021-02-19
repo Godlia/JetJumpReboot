@@ -6,6 +6,10 @@ using CodeMonkey.Utils;
 public class PlayerAim : MonoBehaviour
 {
     public GameObject Player;
+
+    public SpriteRenderer PlayerSprite;
+
+    public SpriteRenderer GunSprite;
     private Transform aimTransform;
     private Animator aimAnimator;
     private float angle;
@@ -27,6 +31,7 @@ public class PlayerAim : MonoBehaviour
     void Update()
     {
         HandleAiming();
+        RotateSprites();
     }
 
     public void HandleAiming()
@@ -40,5 +45,18 @@ public class PlayerAim : MonoBehaviour
         angle = gunAngle;
     }
 
+    public void RotateSprites() {
+    if (angle < -90) {
+        GunSprite.flipY = true;
+        PlayerSprite.flipX = true;
+    } else if(angle > 90) {
+        GunSprite.flipY = true;
+        PlayerSprite.flipX = true;
+    } else {
+        GunSprite.flipY = false;
+        PlayerSprite.flipX = false;
+    }
+
+    }
 
 }
