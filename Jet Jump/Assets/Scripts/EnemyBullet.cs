@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,21 +15,19 @@ public class EnemyBullet : MonoBehaviour
 	Transform rbtarget;
 
 	// Use this for initialization
-	void Start()
-	{
+	void Awake() {
+		Player = GameObject.Find("Player");
 		rb = GetComponent<Rigidbody2D>();
 		target = Player.transform;
 		moveDirection = (target.transform.position - transform.position).normalized * moveSpeed;
 		rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
 		Destroy(gameObject, 3);
-	}
-
-	void OnTriggerEnter2D(Collider2D col)
-	{
-		if (col.gameObject.name.Equals("Player"))
-		{
-			Debug.Log("Hit!");
-			Destroy(gameObject);
-		}
-	}
+	}        
+	void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.tag.Equals("Player")) {
+            Destroy(this.gameObject);
+        } else if (collision.gameObject.tag.Equals("Ground")) {
+            Destroy(this.gameObject);
+        } 
+    }
 }

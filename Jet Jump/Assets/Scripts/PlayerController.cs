@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private float MoveInput;
 
     private bool isFlying = false;
+    private bool isGrounded = false;
 
 
 
@@ -25,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     public float jetpower = 20f;
     public float maxfuel = 10f;
-    private float fuel = 10f;
+    public float fuel = 10f;
     public float fuelregen = 0.02f;
     public float consumption = 0.2f;
 
@@ -34,23 +35,13 @@ public class PlayerController : MonoBehaviour
 
     public float maxhealth = 10f;
 
-    public float healthregen = 0.5f;
+    public float healthregen = 0.1f;
+
+    public float startHealAfterTime;
+    public float regenCoolDown;
 
 
 
-    private Collider2D[] isGrounded = new Collider2D[1];
-    public GameObject myPrefab;
-
-    [SerializeField]
-    private float boxLength;
-    [SerializeField]
-    private float boxHeight;
-    [SerializeField]
-    private Transform groundPosition;
-    [SerializeField]
-    private LayerMask groundLayer;
-    [SerializeField]
-    private GameObject playertag;
 
     public Slider Slider;
 
@@ -60,20 +51,18 @@ public class PlayerController : MonoBehaviour
 
     public Transform Nozzle;
 
-    private ParticleSystem.MainModule pMain;
 
     private void Awake()
     {
         //Bare setter noen variabler
         rb = GetComponent<Rigidbody2D>();
         fuel = maxfuel;
-        pMain = Flames.main;
         health = maxhealth;
     }
 
     private void Update()
     {
-        //alt medbevegelse og fuel-bar
+        //alt medbevegelse og fuel & health-bar
         MoveInput = Input.GetAxis("Horizontal");
         isFlying = Input.GetKey(KeyCode.Space);
         Slider.value = fuel;
@@ -84,18 +73,15 @@ public class PlayerController : MonoBehaviour
     {
         //fysikk - Jetpack, fuel og bevegelse
 
-        isGrounded[0] = null;
-        Physics2D.OverlapBoxNonAlloc(groundPosition.position, new Vector2(boxLength, boxHeight), 0, isGrounded, groundLayer);
+    if(rb.velocity.y == 0) {isGrounded = true;} else {isGrounded = false;}
 
-        if (isGrounded[0]) {
+        if (isGrounded) {
             fuel = fuel + fuelregen;
         }
 
         fuel = fuel > maxfuel ? maxfuel : fuel;
-        health = health > maxhealth ? maxhealth : health;
 
         rb.velocity = new Vector2(MoveInput * moveSpeed, rb.velocity.y);
-        health += healthregen;
 
 
         if (fuel >= 0.1f)
@@ -106,24 +92,38 @@ public class PlayerController : MonoBehaviour
                 fuel = fuel - consumption;
             }
         }
-
+/*
         if(isFlying) {
             pMain.startSize = 0.02f;
         } else if (isFlying == false) {
             pMain.startSize = 0f;
         }
+*/
+
+    
+    
+    
+    health = health > maxhealth ? maxhealth : health;
+    if(health > 0) {    
+    if(Time.time > regenCoolDown) {
+        health += healthregen;
+    } else if(health <= 0) {
+        Destroy(this.gameObject);
+    }
     }
 
-    private void OnDrawGizmos()
-    {
-        //Lager en boks som sjekker om jeg er i kontakt med et objekt med taggen "Ground"
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(groundPosition.position, new Vector2(boxLength, boxHeight));
-    }
+}
 
     void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.tag.Equals("Enemy")) {
-            health -= 3f;
+            Damage();
+        } else if(collision.gameObject.tag.Equals("EnemyBullet")) {
+            Damage();
         }
+    }
+    
+    void Damage() {
+        health -= 3f;
+        regenCoolDown = Time.time + startHealAfterTime;
     }
 }

@@ -12,10 +12,18 @@ public class EnemyAI : MonoBehaviour
 	float nextFire;
 	public float health = 20f;
 	public float bulldmg = 5f;
+	public GameObject Player;
+	public Transform PlayerT; 
+	public Transform ThisT;
+	private float DistanceToPlayer;
+	
 
 	// Use this for initialization
-	void Start()
+	void Awake()
 	{
+		ThisT = GetComponent<Transform>();
+		Player = GameObject.Find("Player");	
+		PlayerT = Player.GetComponent<Transform>();	
 		fireRate = 1f;
 		nextFire = Time.time;
 	}
@@ -28,9 +36,9 @@ public class EnemyAI : MonoBehaviour
 
 	void CheckIfTimeToFire()
 	{
-		if (Time.time > nextFire)
+		if (Time.time > nextFire && DistanceToPlayer < 10f)
 		{
-			//Instantiate(bullet, transform.position, Quaternion.identity);
+			Instantiate(bullet, transform.position, Quaternion.identity);
 			nextFire = Time.time + fireRate;
 		}
 
