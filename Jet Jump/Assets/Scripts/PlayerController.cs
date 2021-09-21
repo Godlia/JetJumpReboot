@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -92,15 +91,7 @@ public class PlayerController : MonoBehaviour
                 fuel = fuel - consumption;
             }
         }
-/*
-        if(isFlying) {
-            pMain.startSize = 0.02f;
-        } else if (isFlying == false) {
-            pMain.startSize = 0f;
-        }
-*/
-
-    
+  
     
     
     health = health > maxhealth ? maxhealth : health;
