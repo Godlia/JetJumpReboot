@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,17 +25,17 @@ public class PlayerController : MonoBehaviour
 
 
     public float jetpower = 20f;
-    public float maxfuel = 10f;
+    private float maxfuel = 10f;
     public float fuel = 10f;
     public float fuelregen = 0.02f;
     public float consumption = 0.2f;
 
 
-    private float health;
+    public float health;
 
     public float maxhealth = 10f;
 
-    public float healthregen = 0.1f;
+    private float healthregen = 0.01f;
 
     public float startHealAfterTime;
     public float regenCoolDown;
@@ -72,9 +73,10 @@ public class PlayerController : MonoBehaviour
     {
         //fysikk - Jetpack, fuel og bevegelse
 
-    if(rb.velocity.y == 0) {isGrounded = true;} else {isGrounded = false;}
+        if (rb.velocity.y == 0) { isGrounded = true; } else { isGrounded = false; }
 
-        if (isGrounded) {
+        if (isGrounded)
+        {
             fuel = fuel + fuelregen;
         }
 
@@ -91,29 +93,40 @@ public class PlayerController : MonoBehaviour
                 fuel = fuel - consumption;
             }
         }
-  
-    
-    
-    health = health > maxhealth ? maxhealth : health;
-    if(health > 0) {    
-    if(Time.time > regenCoolDown) {
-        health += healthregen;
-    } else if(health <= 0) {
-        Destroy(this.gameObject);
-    }
+
+
+
+        health = health > maxhealth ? maxhealth : health;
+        if (health > 0)
+        {
+            if (Time.time > regenCoolDown)
+            {
+                health += healthregen;
+            }
+            else if (health <= 0)
+            {
+                Debug.Log("yuh");
+                Destroy(this.gameObject);
+                SceneManager.LoadScene("Main Menu");
+            }
+        }
+
     }
 
-}
-
-    void OnCollisionEnter2D(Collision2D collision) {
-        if(collision.gameObject.tag.Equals("Enemy")) {
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag.Equals("Enemy"))
+        {
             Damage();
-        } else if(collision.gameObject.tag.Equals("EnemyBullet")) {
+        }
+        else if (collision.gameObject.tag.Equals("EnemyBullet"))
+        {
             Damage();
         }
     }
-    
-    void Damage() {
+
+    void Damage()
+    {
         health -= 3f;
         regenCoolDown = Time.time + startHealAfterTime;
     }

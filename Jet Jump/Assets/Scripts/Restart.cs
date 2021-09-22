@@ -2,16 +2,16 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
  
- public class SceneManager : MonoBehaviour{
+ public class Restart : MonoBehaviour{
 
 
     void Update() {
-        Restart();
+        RestartGame();
     }
 
-    void Restart() {
+    void RestartGame() {
         if(Input.GetKeyDown(KeyCode.R)) {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
         }
     }
 

@@ -1,60 +1,37 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BurstJump : MonoBehaviour
+public class CooldownScript : MonoBehaviour
 {
-    public AudioSource Audio;
-    public GameObject player;
-    public Rigidbody2D rb;
-    private KeyCode burstjumpkey;
-    public float burstjumppower = 40f;
-    public float burstrate;
-    
-    private float timestamp;
-
     [SerializeField]
     private Image imageCooldown;
     [SerializeField]
     private Text textCooldown;
+    [SerializeField]
+    private Image imageEdge;
 
     private bool isCooldown = false;
     [SerializeField]
-    private float coolDownTime;
-
+    private float coolDownTime = 0.0f;
+    
     private float coolDownTimer = 0.0f;
 
 
-    void Awake()
-    {
-        rb = player.GetComponent<Rigidbody2D>();
-        burstjumpkey = KeyCode.E;
-        coolDownTime = burstrate;
-    }
+
+
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if(Input.GetKeyDown(burstjumpkey) && Time.time > timestamp) {
-            rb.AddForce(Vector2.up * burstjumppower ,ForceMode2D.Impulse);
-            timestamp = Time.time + burstrate;
-            useSpell();
-        }
-
-
-        if (isCooldown)
-        {
-            ApplyCoolDown();
-        }
     }
-
 
     void ApplyCoolDown()
     {
         coolDownTimer -= Time.deltaTime;
 
-        if (coolDownTimer < 0.0f)
+        if(coolDownTimer < 0.0f)
         {
             isCooldown = false;
             textCooldown.gameObject.SetActive(false);
@@ -81,3 +58,4 @@ public class BurstJump : MonoBehaviour
         }
     }
 }
+

@@ -5,20 +5,17 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
 
-	float moveSpeed = 7f;
+	float moveSpeed = 10f;
 
 	Rigidbody2D rb;
 
 	Transform target;
-	public GameObject Player;
 	Vector2 moveDirection;
-	Transform rbtarget;
 
 	// Use this for initialization
 	void Awake() {
-		Player = GameObject.Find("Player");
+		target = GameObject.Find("Player").transform;
 		rb = GetComponent<Rigidbody2D>();
-		target = Player.transform;
 		moveDirection = (target.transform.position - transform.position).normalized * moveSpeed;
 		rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
 		Destroy(gameObject, 3);
