@@ -97,18 +97,15 @@ public class PlayerController : MonoBehaviour
 
 
         health = health > maxhealth ? maxhealth : health;
-        if (health > 0)
-        {
+        if (health > 0){
             if (Time.time > regenCoolDown)
             {
                 health += healthregen;
             }
-            else if (health <= 0)
-            {
-                Debug.Log("yuh");
-                Destroy(this.gameObject);
-                SceneManager.LoadScene("Main Menu");
-            }
+        } else { 
+            Debug.Log("yuh");
+            Destroy(this.gameObject);
+            SceneManager.LoadScene("Main Menu");
         }
 
     }
