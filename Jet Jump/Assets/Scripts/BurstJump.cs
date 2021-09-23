@@ -12,7 +12,6 @@ public class BurstJump : MonoBehaviour
     public float burstjumppower = 40f;
     public float burstrate;
     
-    private float timestamp;
 
     [SerializeField]
     private Image imageCooldown;
@@ -20,7 +19,7 @@ public class BurstJump : MonoBehaviour
     private Text textCooldown;
 
     private bool isCooldown = false;
-    [SerializeField]
+
     private float coolDownTime;
 
     private float coolDownTimer = 0.0f;
@@ -36,13 +35,11 @@ public class BurstJump : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(Input.GetKeyDown(burstjumpkey) && Time.time > timestamp) {
-            rb.AddForce(Vector2.up * burstjumppower ,ForceMode2D.Impulse);
-            timestamp = Time.time + burstrate;
-            useSpell();
+        if(Input.GetKeyDown(burstjumpkey)) {
+            useJump();
         }
 
-
+        
         if (isCooldown)
         {
             ApplyCoolDown();
@@ -67,14 +64,15 @@ public class BurstJump : MonoBehaviour
         }
     }
 
-    public void useSpell()
+    public void useJump()
     {
         if (isCooldown)
         {
-            //still cooling
+            Debug.Log(coolDownTime);
         }
         else
         {
+            rb.AddForce(Vector2.up * burstjumppower, ForceMode2D.Impulse);
             isCooldown = true;
             textCooldown.gameObject.SetActive(true);
             coolDownTimer = coolDownTime;

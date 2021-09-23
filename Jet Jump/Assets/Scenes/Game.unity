@@ -212,6 +212,7 @@ MonoBehaviour:
   fuel: 10
   fuelregen: 0.04
   consumption: 0.1
+  health: 0
   maxhealth: 10
   startHealAfterTime: 3
   regenCoolDown: 0
@@ -343,10 +344,9 @@ MonoBehaviour:
   rb: {fileID: 0}
   burstjumppower: 15
   burstrate: 2.6
-  imageCooldown: {fileID: 0}
-  textCooldown: {fileID: 0}
-  imageEdge: {fileID: 0}
-  coolDownTime: 0
+  imageCooldown: {fileID: 922804742}
+  textCooldown: {fileID: 728674044}
+  coolDownTime: 2.5
 --- !u!4 &121014757 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3334930061069841548, guid: 0dd5d4d95436947499f2f73b12ca0bf3, type: 3}
