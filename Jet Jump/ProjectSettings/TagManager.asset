@@ -9,6 +9,8 @@ TagManager:
   - ShootSmoke
   - Enemy
   - EnemyBullet
+  - FuelSlider
+  - HealthSlider
   layers:
   - Default
   - TransparentFX

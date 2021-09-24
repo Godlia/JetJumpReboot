@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class PlayerController : MonoBehaviour
 {
@@ -52,12 +53,19 @@ public class PlayerController : MonoBehaviour
     public Transform Nozzle;
 
 
-    private void Awake()
+    PhotonView view;
+
+    private void Start()
     {
         //Bare setter noen variabler
         rb = GetComponent<Rigidbody2D>();
         fuel = maxfuel;
         health = maxhealth;
+        Slider = GameObject.FindGameObjectWithTag("FuelSlider").GetComponent<Slider>();
+        healthSlider = GameObject.FindGameObjectWithTag("HealthSlider").GetComponent<Slider>();
+        SpriteRender = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
+        view = GetComponent<PhotonView>();
+
     }
 
     private void Update()
@@ -73,59 +81,71 @@ public class PlayerController : MonoBehaviour
     {
         //fysikk - Jetpack, fuel og bevegelse
 
-        if (rb.velocity.y == 0) {isGrounded = true;} else {isGrounded = false;}
-
-        if (isGrounded)
+        if (view.IsMine)
         {
-            fuel += fuelregen;
-        }
+            if (rb.velocity.y == 0) { isGrounded = true; } else { isGrounded = false; }
 
-        fuel = fuel > maxfuel ? maxfuel : fuel;     
-
-        playerpos.transform.Translate(MoveInput * moveSpeed * Time.deltaTime, 0, 0);
-
-
-
-        if (fuel >= 0.1f)
-        {
-            if (isFlying)
+            if (isGrounded)
             {
-                rb.AddForce(Vector2.up * jetpower * Time.deltaTime);
-                fuel = fuel - consumption;
+                fuel += fuelregen;
             }
-        }
+
+            fuel = fuel > maxfuel ? maxfuel : fuel;
+
+            playerpos.transform.Translate(MoveInput * moveSpeed * Time.deltaTime, 0, 0);
 
 
 
-        health = health > maxhealth ? maxhealth : health;
-        if (health > 0){
-            if (Time.time > regenCoolDown)
+            if (fuel >= 0.1f)
             {
-                health += healthregen;
+                if (isFlying)
+                {
+                    rb.AddForce(Vector2.up * jetpower * Time.deltaTime);
+                    fuel = fuel - consumption;
+                }
             }
-        } else { 
-            Debug.Log("yuh");
-            Destroy(this.gameObject);
-            SceneManager.LoadScene("Main Menu");
-        }
 
+
+
+            health = health > maxhealth ? maxhealth : health;
+            if (health > 0)
+            {
+                if (Time.time > regenCoolDown)
+                {
+                    health += healthregen;
+                }
+            }
+            else
+            {
+                Debug.Log("yuh");
+                Destroy(this.gameObject);
+                SceneManager.LoadScene("Main Menu");
+            }
+
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag.Equals("Enemy"))
+        if (view.IsMine)
         {
-            Damage();
-        }
-        else if (collision.gameObject.tag.Equals("EnemyBullet"))
-        {
-            Damage();
+            if (collision.gameObject.tag.Equals("Enemy"))
+            {
+                Damage();
+            }
+            else if (collision.gameObject.tag.Equals("EnemyBullet"))
+            {
+                Damage();
+            }
         }
     }
 
     void Damage()
     {
-        health -= 3f;
-        regenCoolDown = Time.time + startHealAfterTime;
+        if (view.IsMine)
+        {
+            health -= 3f;
+            regenCoolDown = Time.time + startHealAfterTime;
+        }
     }
 }

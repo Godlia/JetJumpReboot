@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Photon.Pun;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -8,7 +9,11 @@ public class CameraFollow : MonoBehaviour
 	public float smoothSpeed = 0.125f;
 	public Vector3 offset;
 
-	void FixedUpdate()
+    private void Start()
+    { 
+    }
+
+    void FixedUpdate()
 	{
 		Vector3 desiredPosition = target.position + offset;
 		Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
