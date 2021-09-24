@@ -7,12 +7,11 @@ public class SpawnPlayers : MonoBehaviourPun
 {
     public GameObject playerPrefab;
     public GameObject Camera;
-    public GameObject myPlayer;
 
-    private void Start()
+    private void Awake()
     {
         PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0, 0, 0), Quaternion.identity);
+        
         PhotonNetwork.Instantiate(Camera.name, new Vector3(0, 0, 0), Quaternion.identity);
-        //Camera.GetComponent<CameraFollow>().target = GameObject.FindGameObjectsWithTag("Player");
     }
 }

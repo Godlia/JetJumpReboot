@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class ShootScript : MonoBehaviour
+public class ShootScript : MonoBehaviourPun
 {
     public GameObject Player;
     public Transform Gun;
@@ -12,6 +13,7 @@ public class ShootScript : MonoBehaviour
     public KeyCode shootKey;
     public Transform shootPoint;
     public AudioSource Source;
+    PhotonView view;
 
 
     public float fireRate;
@@ -22,21 +24,26 @@ public class ShootScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        Source = GameObject.FindGameObjectWithTag("ShootSound").GetComponent<AudioSource>();
+        view = GetComponentInParent<PhotonView>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector2 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        direction = MousePos - (Vector2)Gun.position;
-        //FaceMouse();
-
-        if (Input.GetMouseButton(0))
+        if (view.IsMine)
         {
-            if (Time.time > readyForNextShot)
+            Vector2 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            direction = MousePos - (Vector2)Gun.position;
+            //FaceMouse();
+
+            if (Input.GetMouseButton(0))
             {
-                readyForNextShot = Time.time + 1 / fireRate;
-                shoot();
+                if (Time.time > readyForNextShot)
+                {
+                    readyForNextShot = Time.time + 1 / fireRate;
+                    shoot();
+                }
             }
         }
     }

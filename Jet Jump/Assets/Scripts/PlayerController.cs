@@ -55,6 +55,11 @@ public class PlayerController : MonoBehaviour
 
     PhotonView view;
 
+    void Awake()
+    {
+
+    }
+
     private void Start()
     {
         //Bare setter noen variabler
@@ -66,6 +71,7 @@ public class PlayerController : MonoBehaviour
         SpriteRender = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
         view = GetComponent<PhotonView>();
 
+
     }
 
     private void Update()
@@ -73,8 +79,7 @@ public class PlayerController : MonoBehaviour
         //alt medbevegelse og fuel & health-bar
         MoveInput = Input.GetAxisRaw("Horizontal");
         isFlying = Input.GetKey(KeyCode.Space);
-        Slider.value = fuel;
-        healthSlider.value = health;
+        Debug.Log(fuel);
     }
 
     void FixedUpdate()
@@ -83,6 +88,8 @@ public class PlayerController : MonoBehaviour
 
         if (view.IsMine)
         {
+            Slider.value = fuel;
+            healthSlider.value = health;
             if (rb.velocity.y == 0) { isGrounded = true; } else { isGrounded = false; }
 
             if (isGrounded)

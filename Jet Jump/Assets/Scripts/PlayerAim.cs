@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
+using Photon.Pun;
 
-public class PlayerAim : MonoBehaviour
+public class PlayerAim : MonoBehaviourPun
 {
     public GameObject Player;
 
@@ -14,11 +15,13 @@ public class PlayerAim : MonoBehaviour
     private Animator aimAnimator;
     private float angle;
     public SpriteRenderer sp;
+    PhotonView view;
 
 
     private void Awake() {
         aimTransform = transform.Find("Aim");
         aimAnimator = aimTransform.GetComponent<Animator>();
+        view = GetComponentInParent<PhotonView>();
     }
 
     // Start is called before the first frame update
@@ -30,8 +33,11 @@ public class PlayerAim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleAiming();
-        RotateSprites();
+        if (view.IsMine)
+        {
+            HandleAiming();
+            RotateSprites();
+        }
     }
 
     public void HandleAiming()

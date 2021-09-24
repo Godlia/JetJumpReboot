@@ -33,6 +33,9 @@ public class BurstJump : MonoBehaviour
         burstjumpkey = KeyCode.E;
         coolDownTime = burstrate;
         view = GetComponent<PhotonView>();
+        Audio = GameObject.FindGameObjectWithTag("BurstPing").GetComponent<AudioSource>();
+        imageCooldown = GameObject.FindGameObjectWithTag("CooldownFill").GetComponent<Image>();
+        textCooldown = GameObject.FindGameObjectWithTag("CooldownText").GetComponent<Text>();
     }
 
 
@@ -50,8 +53,6 @@ public class BurstJump : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        
         if (isCooldown)
         {
             ApplyCoolDown();
@@ -81,9 +82,8 @@ public class BurstJump : MonoBehaviour
 
     public void useJump()
     {
-        if (isCooldown)
+        if (isCooldown || !view.IsMine)
         {
-            Debug.Log(coolDownTime);
         }
         else
         {
