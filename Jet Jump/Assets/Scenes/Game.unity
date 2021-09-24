@@ -205,10 +205,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7cd113506571f4b84f385ff4268951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
+  moveSpeed: 12
   playerpos: {fileID: 113815496}
   SpriteRender: {fileID: 0}
-  jetpower: 30
+  jetpower: 2000
   fuel: 10
   fuelregen: 0.04
   consumption: 0.1
@@ -280,7 +280,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 113815491}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -3.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1830095331}
@@ -342,7 +342,7 @@ MonoBehaviour:
   Audio: {fileID: 1838658245}
   player: {fileID: 113815491}
   rb: {fileID: 0}
-  burstjumppower: 15
+  burstjumppower: 2500
   burstrate: 2.6
   imageCooldown: {fileID: 922804742}
   textCooldown: {fileID: 728674044}
@@ -1780,7 +1780,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: bbf564aaa3962a94d8cb2b1ad4cee75c, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

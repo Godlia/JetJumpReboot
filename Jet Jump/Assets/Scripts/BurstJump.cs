@@ -32,12 +32,19 @@ public class BurstJump : MonoBehaviour
         coolDownTime = burstrate;
     }
 
+
+    void Update()
+    {
+
+        if (Input.GetKeyDown(burstjumpkey))
+        {
+            useJump();
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(Input.GetKeyDown(burstjumpkey)) {
-            useJump();
-        }
 
         
         if (isCooldown)
@@ -53,12 +60,15 @@ public class BurstJump : MonoBehaviour
 
         if (coolDownTimer < 0.0f)
         {
+            Audio.Play();
+            //Når CoolDown er ferdig
             isCooldown = false;
             textCooldown.gameObject.SetActive(false);
             imageCooldown.fillAmount = 1.0f;
         }
         else
         {
+            //Cooldown er ikke ferdig
             textCooldown.text = Mathf.RoundToInt(coolDownTimer).ToString();
             imageCooldown.fillAmount = 1 - coolDownTimer / coolDownTime;
         }
@@ -72,7 +82,7 @@ public class BurstJump : MonoBehaviour
         }
         else
         {
-            rb.AddForce(Vector2.up * burstjumppower, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * burstjumppower * Time.deltaTime, ForceMode2D.Impulse);
             isCooldown = true;
             textCooldown.gameObject.SetActive(true);
             coolDownTimer = coolDownTime;

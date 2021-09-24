@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
         {
             if (isFlying)
             {
-                rb.AddForce(Vector2.up * jetpower);
+                rb.AddForce(Vector2.up * jetpower * Time.deltaTime);
                 fuel = fuel - consumption;
             }
         }
