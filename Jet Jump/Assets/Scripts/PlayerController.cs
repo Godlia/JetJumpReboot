@@ -63,26 +63,27 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         //alt medbevegelse og fuel & health-bar
-        MoveInput = Input.GetAxis("Horizontal");
+        MoveInput = Input.GetAxisRaw("Horizontal");
         isFlying = Input.GetKey(KeyCode.Space);
         Slider.value = fuel;
         healthSlider.value = health;
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         //fysikk - Jetpack, fuel og bevegelse
 
-        if (rb.velocity.y == 0) { isGrounded = true; } else { isGrounded = false; }
+        if (rb.velocity.y == 0) {isGrounded = true;} else {isGrounded = false;}
 
         if (isGrounded)
         {
-            fuel = fuel + fuelregen;
+            fuel += fuelregen;
         }
 
-        fuel = fuel > maxfuel ? maxfuel : fuel;
+        fuel = fuel > maxfuel ? maxfuel : fuel;     
 
-        rb.velocity = new Vector2(MoveInput * moveSpeed, rb.velocity.y);
+        playerpos.transform.Translate(MoveInput * moveSpeed * Time.deltaTime, 0, 0);
+
 
 
         if (fuel >= 0.1f)
