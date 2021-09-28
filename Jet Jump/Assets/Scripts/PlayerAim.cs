@@ -23,12 +23,20 @@ public class PlayerAim : MonoBehaviourPun
         aimAnimator = aimTransform.GetComponent<Animator>();
         view = GetComponentInParent<PhotonView>();
     }
-
-    // Start is called before the first frame update
-    void Start()
+    /*
+    private void Start()
     {
-
+        GameObject[] Cameras = GameObject.FindGameObjectsWithTag("PlayerCamera");
+        foreach (GameObject camera in Cameras)
+        {
+            if (camera.GetComponent<PhotonView>().IsMine)
+            {
+                Cam = camera.GetComponent<Camera>();
+                break;
+            }
+        }
     }
+    */
 
     // Update is called once per frame
     void Update()
@@ -40,10 +48,13 @@ public class PlayerAim : MonoBehaviourPun
         }
     }
 
+
     public void HandleAiming()
     {
 
-        Vector3 mousePosition = UtilsClass.GetMouseWorldPosition();
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition.x -= Screen.width / 2;
+        mousePosition.y -= Screen.height / 2;
 
         Vector3 aimDirection = (mousePosition - transform.position).normalized;
         float gunAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;

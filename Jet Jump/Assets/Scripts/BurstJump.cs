@@ -64,7 +64,7 @@ public class BurstJump : MonoBehaviour
     {
         coolDownTimer -= Time.deltaTime;
 
-        if (coolDownTimer < 0.0f)
+        if (coolDownTimer < 0.0f )
         {
             Audio.Play();
             //Når CoolDown er ferdig

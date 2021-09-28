@@ -11,6 +11,11 @@ TagManager:
   - EnemyBullet
   - FuelSlider
   - HealthSlider
+  - ShootSound
+  - BurstPing
+  - CooldownFill
+  - CooldownText
+  - PlayerCamera
   layers:
   - Default
   - TransparentFX

@@ -79,7 +79,6 @@ public class PlayerController : MonoBehaviour
         //alt medbevegelse og fuel & health-bar
         MoveInput = Input.GetAxisRaw("Horizontal");
         isFlying = Input.GetKey(KeyCode.Space);
-        Debug.Log(fuel);
     }
 
     void FixedUpdate()
@@ -124,7 +123,6 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Debug.Log("yuh");
                 Destroy(this.gameObject);
                 SceneManager.LoadScene("Main Menu");
             }
@@ -134,8 +132,6 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (view.IsMine)
-        {
             if (collision.gameObject.tag.Equals("Enemy"))
             {
                 Damage();
@@ -144,15 +140,13 @@ public class PlayerController : MonoBehaviour
             {
                 Damage();
             }
-        }
+        
     }
 
     void Damage()
     {
-        if (view.IsMine)
-        {
             health -= 3f;
             regenCoolDown = Time.time + startHealAfterTime;
-        }
+        
     }
 }

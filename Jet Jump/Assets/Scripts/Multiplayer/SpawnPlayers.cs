@@ -12,6 +12,6 @@ public class SpawnPlayers : MonoBehaviourPun
     {
         PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0, 0, 0), Quaternion.identity);
         
-        PhotonNetwork.Instantiate(Camera.name, new Vector3(0, 0, 0), Quaternion.identity);
+        PhotonNetwork.Instantiate(Camera.name, new Vector3(0, 0, -4), Quaternion.identity);
     }
 }

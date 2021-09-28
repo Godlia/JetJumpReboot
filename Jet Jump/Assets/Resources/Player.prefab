@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 571409679825197984}
   - component: {fileID: 571409679825197990}
   - component: {fileID: 571409679825197989}
+  - component: {fileID: 4092903080617189967}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -130,6 +131,39 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4092903080617189967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571409679825197986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PositionModel:
+    SynchronizeEnabled: 1
+    TeleportEnabled: 1
+    TeleportIfDistanceGreaterThan: 3
+    InterpolateOption: 2
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 1
+    ExtrapolateOption: 0
+    ExtrapolateSpeed: 1
+    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateNumberOfStoredPositions: 1
+  m_RotationModel:
+    SynchronizeEnabled: 1
+    InterpolateOption: 1
+    InterpolateRotateTowardsSpeed: 180
+    InterpolateLerpSpeed: 5
+  m_ScaleModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 0
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 0
 --- !u!1 &571409680039635560
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,6 +173,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 571409680039635567}
+  - component: {fileID: 7330805045315147952}
   m_Layer: 0
   m_Name: Aim
   m_TagString: Untagged
@@ -162,6 +197,39 @@ Transform:
   m_Father: {fileID: 571409681555193867}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7330805045315147952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571409680039635560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PositionModel:
+    SynchronizeEnabled: 1
+    TeleportEnabled: 1
+    TeleportIfDistanceGreaterThan: 3
+    InterpolateOption: 2
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 1
+    ExtrapolateOption: 0
+    ExtrapolateSpeed: 1
+    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateNumberOfStoredPositions: 1
+  m_RotationModel:
+    SynchronizeEnabled: 1
+    InterpolateOption: 1
+    InterpolateRotateTowardsSpeed: 180
+    InterpolateLerpSpeed: 5
+  m_ScaleModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 0
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 0
 --- !u!1 &571409680065930785
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,6 +307,8 @@ GameObject:
   - component: {fileID: 571409681555193864}
   - component: {fileID: 571409681555193863}
   - component: {fileID: 2417407566745210126}
+  - component: {fileID: -4872534658894455552}
+  - component: {fileID: 5189122182754704617}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -326,10 +396,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7cd113506571f4b84f385ff4268951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 12
+  moveSpeed: 6
   playerpos: {fileID: 571409681555193867}
   SpriteRender: {fileID: 0}
-  jetpower: 2000
+  jetpower: 1500
   fuel: 10
   fuelregen: 0.04
   consumption: 0.1
@@ -360,6 +430,7 @@ MonoBehaviour:
   shootKey: 323
   shootPoint: {fileID: 571409681336349975}
   Source: {fileID: 0}
+  Cam: {fileID: 0}
   fireRate: 1
   readyForNextShot: 0
   gunAnimator: {fileID: 571409679825197989}
@@ -416,7 +487,7 @@ MonoBehaviour:
   Audio: {fileID: 0}
   player: {fileID: 571409681555193856}
   rb: {fileID: 0}
-  burstjumppower: 2500
+  burstjumppower: 1250
   burstrate: 2.6
   imageCooldown: {fileID: 0}
   textCooldown: {fileID: 0}
@@ -464,7 +535,56 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -4872534658894455552}
+  - {fileID: 5189122182754704617}
+  - {fileID: 7330805045315147952}
+  - {fileID: 4092903080617189967}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-4872534658894455552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571409681555193856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PositionModel:
+    SynchronizeEnabled: 1
+    TeleportEnabled: 1
+    TeleportIfDistanceGreaterThan: 0.01
+    InterpolateOption: 2
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 1
+    ExtrapolateOption: 2
+    ExtrapolateSpeed: 1
+    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateNumberOfStoredPositions: 1
+  m_RotationModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 1
+    InterpolateRotateTowardsSpeed: 180
+    InterpolateLerpSpeed: 5
+  m_ScaleModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 0
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 0
+--- !u!114 &5189122182754704617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571409681555193856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d40a66158483ac49a2317a671b25d9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

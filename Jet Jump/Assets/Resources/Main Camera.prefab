@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 1954156274127259282}
   - component: {fileID: 1954156274127259280}
   - component: {fileID: 1954156274127259283}
+  - component: {fileID: -1364928040831163146}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: MainCamera
+  m_TagString: PlayerCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,7 +43,7 @@ Camera:
   m_GameObject: {fileID: 1954156274127259281}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -99,3 +100,25 @@ MonoBehaviour:
   target: {fileID: 0}
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: -4}
+--- !u!114 &-1364928040831163146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954156274127259281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

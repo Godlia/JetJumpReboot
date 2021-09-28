@@ -7,13 +7,14 @@ public class ShootScript : MonoBehaviourPun
 {
     public GameObject Player;
     public Transform Gun;
-    Vector2 direction;
     public GameObject Bullet;
     public float bulletspeed;
     public KeyCode shootKey;
+    private Vector2 direction;
     public Transform shootPoint;
     public AudioSource Source;
     PhotonView view;
+    public Camera Cam;
 
 
     public float fireRate;
@@ -26,6 +27,22 @@ public class ShootScript : MonoBehaviourPun
     {
         Source = GameObject.FindGameObjectWithTag("ShootSound").GetComponent<AudioSource>();
         view = GetComponentInParent<PhotonView>();
+
+    }
+
+
+
+    private void Start()
+    {
+        GameObject[] Cameras = GameObject.FindGameObjectsWithTag("PlayerCamera");
+        foreach (GameObject camera in Cameras)
+        {
+            if (camera.GetComponent<PhotonView>().IsMine)
+            {
+                Cam = camera.GetComponent<Camera>();
+                break;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -33,7 +50,7 @@ public class ShootScript : MonoBehaviourPun
     {
         if (view.IsMine)
         {
-            Vector2 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 MousePos = Cam.ScreenToWorldPoint(Input.mousePosition);
             direction = MousePos - (Vector2)Gun.position;
             //FaceMouse();
 
@@ -50,16 +67,10 @@ public class ShootScript : MonoBehaviourPun
 
 
 
-    void FaceMouse()
-    {
-        //Gun.transform.right = direction;
-    }
-
     void shoot()
     {
         GameObject BulletIns = Instantiate(Bullet, shootPoint.position, shootPoint.rotation);
         BulletIns.GetComponent<Rigidbody2D>().AddForce(BulletIns.transform.right * bulletspeed);
-        //Instantiate(muzzleFlash, shootPoint.position, shootPoint.rotation); Destroy(muzzleFlash, 1f);
         Destroy(BulletIns, 2);
         gunAnimator.SetTrigger("Shoot");
         Source.Play();
