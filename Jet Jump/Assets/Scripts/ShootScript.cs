@@ -69,7 +69,7 @@ public class ShootScript : MonoBehaviourPun
 
     void shoot()
     {
-        GameObject BulletIns = Instantiate(Bullet, shootPoint.position, shootPoint.rotation);
+        GameObject BulletIns = PhotonNetwork.Instantiate(Bullet.name, shootPoint.position, shootPoint.rotation);
         BulletIns.GetComponent<Rigidbody2D>().AddForce(BulletIns.transform.right * bulletspeed);
         Destroy(BulletIns, 2);
         gunAnimator.SetTrigger("Shoot");

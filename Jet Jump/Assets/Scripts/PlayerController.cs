@@ -96,6 +96,13 @@ public class PlayerController : MonoBehaviour
                 fuel += fuelregen;
             }
 
+
+            if(playerpos.transform.position.y <= -40)
+            {
+                playerpos.transform.position = new Vector3(0, 0, 0);
+                rb.velocity = new Vector3(0, 0, 0);
+            }
+
             fuel = fuel > maxfuel ? maxfuel : fuel;
 
             playerpos.transform.Translate(MoveInput * moveSpeed * Time.deltaTime, 0, 0);
@@ -124,6 +131,8 @@ public class PlayerController : MonoBehaviour
             else
             {
                 Destroy(this.gameObject);
+                PhotonNetwork.LeaveRoom();
+                PhotonNetwork.Disconnect();
                 SceneManager.LoadScene("Main Menu");
             }
 
@@ -136,7 +145,7 @@ public class PlayerController : MonoBehaviour
             {
                 Damage();
             }
-            else if (collision.gameObject.tag.Equals("EnemyBullet"))
+            else if (collision.gameObject.tag.Equals("Bullet"))
             {
                 Damage();
             }
@@ -145,7 +154,7 @@ public class PlayerController : MonoBehaviour
 
     void Damage()
     {
-            health -= 3f;
+            health -= 3.34f;
             regenCoolDown = Time.time + startHealAfterTime;
         
     }

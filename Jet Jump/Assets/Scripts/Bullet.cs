@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+
         void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag.Equals("Enemy")) {
             Destroy(this.gameObject);
@@ -11,4 +12,12 @@ public class Bullet : MonoBehaviour
             Destroy(this.gameObject);
         } 
     }
+
+    private void Update()
+    {
+        Destroy(this.gameObject, 2f);
+    }
+
+
+
 }
