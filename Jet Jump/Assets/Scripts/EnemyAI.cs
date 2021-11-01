@@ -19,10 +19,10 @@ public class EnemyAI : MonoBehaviour
 	
 
 	// Use this for initialization
-	void Awake()
+	void Start()
 	{
-		ThisT = GetComponent<Transform>();
-		Player = GameObject.Find("Player");	
+		ThisT = this.GetComponent<Transform>();
+		Player = GameObject.FindGameObjectWithTag("Player");	
 		PlayerT = Player.GetComponent<Transform>();	
 		fireRate = 1f;
 		nextFire = Time.time;

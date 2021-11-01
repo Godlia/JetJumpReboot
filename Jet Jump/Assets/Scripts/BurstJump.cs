@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
 
 public class BurstJump : MonoBehaviour
 {
@@ -12,7 +11,6 @@ public class BurstJump : MonoBehaviour
     private KeyCode burstjumpkey;
     public float burstjumppower = 40f;
     public float burstrate;
-    PhotonView view;
     
 
     [SerializeField]
@@ -32,7 +30,6 @@ public class BurstJump : MonoBehaviour
         rb = player.GetComponent<Rigidbody2D>();
         burstjumpkey = KeyCode.E;
         coolDownTime = burstrate;
-        view = GetComponent<PhotonView>();
         Audio = GameObject.FindGameObjectWithTag("BurstPing").GetComponent<AudioSource>();
         imageCooldown = GameObject.FindGameObjectWithTag("CooldownFill").GetComponent<Image>();
         textCooldown = GameObject.FindGameObjectWithTag("CooldownText").GetComponent<Text>();
@@ -41,14 +38,11 @@ public class BurstJump : MonoBehaviour
 
     void Update()
     {
-        if (view.IsMine)
-        {
             if (Input.GetKeyDown(burstjumpkey))
             {
                 useJump();
             }
         }
-    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -82,8 +76,9 @@ public class BurstJump : MonoBehaviour
 
     public void useJump()
     {
-        if (isCooldown || !view.IsMine)
+        if (isCooldown)
         {
+
         }
         else
         {

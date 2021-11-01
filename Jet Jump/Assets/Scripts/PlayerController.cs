@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Photon.Pun;
 
 public class PlayerController : MonoBehaviour
 {
@@ -53,7 +52,6 @@ public class PlayerController : MonoBehaviour
     public Transform Nozzle;
 
 
-    PhotonView view;
 
     void Awake()
     {
@@ -69,7 +67,6 @@ public class PlayerController : MonoBehaviour
         Slider = GameObject.FindGameObjectWithTag("FuelSlider").GetComponent<Slider>();
         healthSlider = GameObject.FindGameObjectWithTag("HealthSlider").GetComponent<Slider>();
         SpriteRender = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
-        view = GetComponent<PhotonView>();
 
 
     }
@@ -85,8 +82,6 @@ public class PlayerController : MonoBehaviour
     {
         //fysikk - Jetpack, fuel og bevegelse
 
-        if (view.IsMine)
-        {
             Slider.value = fuel;
             healthSlider.value = health;
             if (rb.velocity.y == 0) { isGrounded = true; } else { isGrounded = false; }
@@ -108,15 +103,11 @@ public class PlayerController : MonoBehaviour
             playerpos.transform.Translate(MoveInput * moveSpeed * Time.deltaTime, 0, 0);
 
 
-
-            if (fuel >= 0.1f)
-            {
-                if (isFlying)
+                if (isFlying && fuel >= 0.2f)
                 {
                     rb.AddForce(Vector2.up * jetpower * Time.deltaTime);
                     fuel = fuel - consumption;
                 }
-            }
 
 
 
@@ -131,12 +122,9 @@ public class PlayerController : MonoBehaviour
             else
             {
                 Destroy(this.gameObject);
-                PhotonNetwork.LeaveRoom();
-                PhotonNetwork.Disconnect();
                 SceneManager.LoadScene("Main Menu");
             }
 
-        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
