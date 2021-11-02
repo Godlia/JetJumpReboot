@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
-
-public class ShootScript : MonoBehaviourPun
+public class ShootScript : MonoBehaviour
 {
     public GameObject Player;
     public Transform Gun;
@@ -13,7 +11,6 @@ public class ShootScript : MonoBehaviourPun
     private Vector2 direction;
     public Transform shootPoint;
     public AudioSource Source;
-    PhotonView view;
     public Camera Cam;
 
 
@@ -23,33 +20,19 @@ public class ShootScript : MonoBehaviourPun
     public ParticleSystem muzzleFlash;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         Source = GameObject.FindGameObjectWithTag("ShootSound").GetComponent<AudioSource>();
-        view = GetComponentInParent<PhotonView>();
-
+        Cam = GameObject.FindGameObjectWithTag("PlayerCamera").GetComponent<Camera>();
     }
 
 
 
-    private void Start()
-    {
-        GameObject[] Cameras = GameObject.FindGameObjectsWithTag("PlayerCamera");
-        foreach (GameObject camera in Cameras)
-        {
-            if (camera.GetComponent<PhotonView>().IsMine)
-            {
-                Cam = camera.GetComponent<Camera>();
-                break;
-            }
-        }
-    }
+
 
     // Update is called once per frame
     void Update()
     {
-        if (view.IsMine)
-        {
             Vector2 MousePos = Cam.ScreenToWorldPoint(Input.mousePosition);
             direction = MousePos - (Vector2)Gun.position;
             //FaceMouse();
@@ -63,13 +46,12 @@ public class ShootScript : MonoBehaviourPun
                 }
             }
         }
-    }
 
 
 
     void shoot()
     {
-        GameObject BulletIns = PhotonNetwork.Instantiate(Bullet.name, shootPoint.position, shootPoint.rotation);
+        GameObject BulletIns = Instantiate(Bullet, shootPoint.position, shootPoint.rotation);
         BulletIns.GetComponent<Rigidbody2D>().AddForce(BulletIns.transform.right * bulletspeed);
         Destroy(BulletIns, 2);
         gunAnimator.SetTrigger("Shoot");

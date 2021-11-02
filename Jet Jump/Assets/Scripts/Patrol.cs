@@ -32,4 +32,18 @@ public class Patrol : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag.Equals("Enemy"))
+        {
+            if(movingRight == true)
+            {
+                movingRight = false;
+            }
+            else if(movingRight == false)
+            {
+                movingRight = true;
+            }
+        }
+    }
 }

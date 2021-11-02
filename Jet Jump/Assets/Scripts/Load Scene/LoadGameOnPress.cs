@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Photon.Pun;
 
 public class LoadGameOnPress : MonoBehaviour
 {
@@ -21,8 +20,6 @@ public class LoadGameOnPress : MonoBehaviour
     {
         if(Input.GetKeyUp(Key))
         {
-            PhotonNetwork.LeaveRoom();
-            PhotonNetwork.Disconnect();
             SceneManager.LoadScene(SceneName);
         }
     }

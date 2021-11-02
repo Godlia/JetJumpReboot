@@ -9,12 +9,12 @@ public class EnemyBullet : MonoBehaviour
 
 	Rigidbody2D rb;
 
-	Transform target;
+	public Transform target;
 	Vector2 moveDirection;
 
 	// Use this for initialization
-	void Awake() {
-		target = GameObject.Find("Player").transform;
+	void Start() {
+		target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 		rb = GetComponent<Rigidbody2D>();
 		moveDirection = (target.transform.position - transform.position).normalized * moveSpeed;
 		rb.velocity = new Vector2(moveDirection.x, moveDirection.y);

@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
-using Photon.Pun;
 
-public class CameraFollow : MonoBehaviourPun
+public class CameraFollow : MonoBehaviour
 {
-	private GameObject pTarget;
-	private PhotonView pView;
 	public Transform target;
 
 	public float smoothSpeed = 0.125f;
@@ -12,30 +9,12 @@ public class CameraFollow : MonoBehaviourPun
 
     private void Start()
     {
-		pTarget = GameObject.FindGameObjectWithTag("Player");
-		pView = pTarget.GetComponent<PhotonView>();
-		findPlayer();
+		target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
 
 	}
 
-
-
-	void findPlayer()
-    {
-		if (pView.IsMine)
-		{
-			target = pTarget.GetComponent<Transform>();
-		}
-		else
-        {
-			pTarget = GameObject.FindGameObjectWithTag("Player");
-			pView = pTarget.GetComponent<PhotonView>();
-			findPlayer();
-		}
-
-	}
-
+	
     void FixedUpdate()
 	{
 		Vector3 desiredPosition = target.position + offset;
