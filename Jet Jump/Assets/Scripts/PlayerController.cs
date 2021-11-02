@@ -129,14 +129,10 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-            if (collision.gameObject.tag.Equals("Enemy"))
-            {
-                Damage();
-            }
-            else if (collision.gameObject.tag.Equals("Bullet"))
-            {
-                Damage();
-            }
+        if (collision.gameObject.tag.Equals("Enemy") || collision.gameObject.tag.Equals("Bullet") || collision.gameObject.tag.Equals("EnemyBullet"))
+        {
+            Damage();
+        }
         
     }
 

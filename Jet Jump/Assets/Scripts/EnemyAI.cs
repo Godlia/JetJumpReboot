@@ -16,6 +16,7 @@ public class EnemyAI : MonoBehaviour
 	public Transform PlayerT; 
 	public Transform ThisT;
 	private float DistanceToPlayer;
+	public bool ranged;
 	
 
 	// Use this for initialization
@@ -24,14 +25,17 @@ public class EnemyAI : MonoBehaviour
 		ThisT = this.GetComponent<Transform>();
 		Player = GameObject.FindGameObjectWithTag("Player");	
 		PlayerT = Player.GetComponent<Transform>();	
-		fireRate = 1f;
+		fireRate = 2f;
 		nextFire = Time.time;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
+		if(ranged) {
 		CheckIfTimeToFire();
+		}
+		if (ThisT.position.y < -40) { Destroy(this.gameObject); }
 	}
 
 	void CheckIfTimeToFire()

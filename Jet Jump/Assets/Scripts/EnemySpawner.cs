@@ -6,6 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject EnemyPrfb;
     private Vector3 spawnPos;
+    [SerializeField]
     private int enemiesleft;
     // Start is called before the first frame update
     void Start()
@@ -20,13 +21,17 @@ public class EnemySpawner : MonoBehaviour
         enemiesleft = enemies.Length;
         if(enemiesleft == 0)
         {
-            wave();
+            wave(1);
         }
+
     }
 
-    void wave()
+    void wave(int size)
     {
-        spawnPos = new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
-        Instantiate(EnemyPrfb, spawnPos, Quaternion.identity);
+        for (int i = 0; i <= size; i++)
+        {
+            spawnPos = new Vector3(Random.Range(-10, 10), 3, 0);
+            Instantiate(EnemyPrfb, spawnPos, Quaternion.identity);
+        }
     }
 }

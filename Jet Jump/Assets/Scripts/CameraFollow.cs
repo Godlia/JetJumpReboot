@@ -14,23 +14,7 @@ public class CameraFollow : MonoBehaviour
 
 	}
 
-
-	/*
-	void findPlayer()
-    {
-		if (pView.IsMine)
-		{
-			target = pTarget.GetComponent<Transform>();
-		}
-		else
-        {
-			pTarget = GameObject.FindGameObjectWithTag("Player");
-			pView = pTarget.GetComponent<PhotonView>();
-			findPlayer();
-		}
-
-	}
-	*/
+	
     void FixedUpdate()
 	{
 		Vector3 desiredPosition = target.position + offset;
