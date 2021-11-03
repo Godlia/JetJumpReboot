@@ -9,7 +9,7 @@ public class BurstJump : MonoBehaviour
     public GameObject player;
     public Rigidbody2D rb;
     private KeyCode burstjumpkey;
-    public float burstjumppower = 40f;
+    public float burstjumppower = 30f * 100;
     public float burstrate;
     
 

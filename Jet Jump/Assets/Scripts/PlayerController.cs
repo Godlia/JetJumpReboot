@@ -141,5 +141,5 @@ public class PlayerController : MonoBehaviour
             health -= 3.34f;
             regenCoolDown = Time.time + startHealAfterTime;
         
-    }
+    }    
 }
