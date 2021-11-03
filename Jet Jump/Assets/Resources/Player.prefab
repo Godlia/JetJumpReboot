@@ -208,6 +208,7 @@ GameObject:
   - component: {fileID: 571409681555193862}
   - component: {fileID: 571409681555193864}
   - component: {fileID: 571409681555193863}
+  - component: {fileID: -6377496869308582171}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -297,7 +298,7 @@ MonoBehaviour:
   moveSpeed: 6
   playerpos: {fileID: 571409681555193867}
   SpriteRender: {fileID: 0}
-  jetpower: 1500
+  jetpower: 2000
   fuel: 10
   fuelregen: 0.04
   consumption: 0.1
@@ -385,7 +386,7 @@ MonoBehaviour:
   Audio: {fileID: 0}
   player: {fileID: 571409681555193856}
   rb: {fileID: 0}
-  burstjumppower: 1250
+  burstjumppower: 3000
   burstrate: 2.6
   imageCooldown: {fileID: 0}
   textCooldown: {fileID: 0}
@@ -415,3 +416,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 1.13}
   m_EdgeRadius: 0
+--- !u!114 &-6377496869308582171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571409681555193856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
