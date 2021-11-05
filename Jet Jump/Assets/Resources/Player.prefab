@@ -203,12 +203,13 @@ GameObject:
   - component: {fileID: 571409681555193867}
   - component: {fileID: 571409681555193860}
   - component: {fileID: 571409681555193861}
-  - component: {fileID: 571409681555193865}
   - component: {fileID: 571409681555193866}
+  - component: {fileID: 6532557416902459027}
   - component: {fileID: 571409681555193862}
   - component: {fileID: 571409681555193864}
   - component: {fileID: 571409681555193863}
   - component: {fileID: -6377496869308582171}
+  - component: {fileID: 993485482783243532}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -299,41 +300,14 @@ MonoBehaviour:
   playerpos: {fileID: 571409681555193867}
   SpriteRender: {fileID: 0}
   jetpower: 2000
-  fuel: 10
   fuelregen: 0.04
   consumption: 0.1
-  health: 0
   maxhealth: 10
   startHealAfterTime: 3
-  regenCoolDown: 0
   Slider: {fileID: 0}
   healthSlider: {fileID: 0}
   Flames: {fileID: 0}
   Nozzle: {fileID: 0}
---- !u!114 &571409681555193865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 571409681555193856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f13590312dafc5e4486ebf1dbeca43b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  Gun: {fileID: 571409679825197985}
-  Bullet: {fileID: 4600443133250700920, guid: 9dad415fc445c0542bc72d14b9955ed7, type: 3}
-  bulletspeed: 1200
-  shootKey: 323
-  shootPoint: {fileID: 571409681336349975}
-  Source: {fileID: 0}
-  Cam: {fileID: 0}
-  fireRate: 1
-  readyForNextShot: 0
-  gunAnimator: {fileID: 571409679825197989}
-  muzzleFlash: {fileID: 1398292601125362386, guid: b6a094cfa9dec92478f9c2506add5a17, type: 3}
 --- !u!114 &571409681555193866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +324,26 @@ MonoBehaviour:
   PlayerSprite: {fileID: 571409681555193860}
   GunSprite: {fileID: 571409679825197984}
   sp: {fileID: 571409681555193860}
+--- !u!114 &6532557416902459027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571409681555193856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc47f7ce5f86c749a44996bb3c95292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gun: {fileID: 0}
+  Bullet: {fileID: 0}
+  bulletspeed: 0
+  shootPoint: {fileID: 0}
+  Source: {fileID: 0}
+  Cam: {fileID: 0}
+  fireRate: 0
+  gunAnimator: {fileID: 0}
 --- !u!50 &571409681555193862
 Rigidbody2D:
   serializedVersion: 4
@@ -432,3 +426,19 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &993485482783243532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571409681555193856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b93b63ecad02cb4b8439b2c44486ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerPrfb: {fileID: 571409681555193856}
+  PlayerCam: {fileID: 1954156274127259281, guid: 878bff45635e5b54db46877d26aa0693, type: 3}
+  spawnCam: 1
+  spawnPlayer: 0

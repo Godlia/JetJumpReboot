@@ -26,19 +26,19 @@ public class PlayerController : MonoBehaviour
 
     public float jetpower = 20f;
     private float maxfuel = 10f;
-    public float fuel = 10f;
+    private float fuel = 10f;
     public float fuelregen = 0.02f;
     public float consumption = 0.2f;
 
 
-    public float health;
+    private float health;
 
     public float maxhealth = 10f;
 
     private float healthregen = 0.01f;
 
     public float startHealAfterTime;
-    public float regenCoolDown;
+    private float regenCoolDown;
 
 
 
@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
 
             if(playerpos.transform.position.y <= -40)
             {
-                playerpos.transform.position = new Vector3(0, 0, 0);
+                playerpos.transform.position = new Vector3(0, 3, 0);
                 rb.velocity = new Vector3(0, 0, 0);
             }
 

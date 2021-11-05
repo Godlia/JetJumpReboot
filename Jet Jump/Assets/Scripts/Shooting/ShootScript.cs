@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 public class ShootScript : MonoBehaviour
 {
-    public GameObject Player;
     public Transform Gun;
     public GameObject Bullet;
     public float bulletspeed;
-    public KeyCode shootKey;
     private Vector2 direction;
     public Transform shootPoint;
     public AudioSource Source;
@@ -15,9 +13,8 @@ public class ShootScript : MonoBehaviour
 
 
     public float fireRate;
-    public float readyForNextShot;
+    private float readyForNextShot;
     public Animator gunAnimator;
-    public ParticleSystem muzzleFlash;
 
     // Start is called before the first frame update
     void Start()

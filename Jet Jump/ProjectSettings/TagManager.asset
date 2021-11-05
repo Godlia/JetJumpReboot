@@ -16,6 +16,8 @@ TagManager:
   - CooldownFill
   - CooldownText
   - PlayerCamera
+  - State cam
+  - HUD
   layers:
   - Default
   - TransparentFX
