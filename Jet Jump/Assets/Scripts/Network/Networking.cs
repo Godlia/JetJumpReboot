@@ -14,7 +14,6 @@ public class Networking : MonoBehaviour
         Application.targetFrameRate = 30;
         HUD = GameObject.FindGameObjectWithTag("HUD");
         HUD.SetActive(false);
-        stateCam = GameObject.FindGameObjectWithTag("StateCam");
     }
     void OnGUI()
     {

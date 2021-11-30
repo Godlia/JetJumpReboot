@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.Netcode;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     // Dette er bare masse variable man kan endre i spillet
     public float moveSpeed = 3f;
@@ -40,25 +38,23 @@ public class PlayerController : MonoBehaviour
     public float startHealAfterTime;
     private float regenCoolDown;
 
-
-
-
     public Slider Slider;
 
     public Slider healthSlider;
 
-    public ParticleSystem Flames;
 
-    public Transform Nozzle;
+    private Vector2 oldNetPosisition;
+
+    [SerializeField]
+    private NetworkVariable<Vector2> networkPosition;
+
+    [SerializeField]
+    private Component netObj;
 
 
 
-    void Awake()
-    {
 
-    }
-
-    private void Start()
+    public override void NetworkStart()
     {
         //Bare setter noen variabler
         rb = GetComponent<Rigidbody2D>();
@@ -67,8 +63,7 @@ public class PlayerController : MonoBehaviour
         Slider = GameObject.FindGameObjectWithTag("FuelSlider").GetComponent<Slider>();
         healthSlider = GameObject.FindGameObjectWithTag("HealthSlider").GetComponent<Slider>();
         SpriteRender = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
-
-
+        netObj = GetComponent<NetworkObject>();
     }
 
     private void Update()
@@ -76,54 +71,55 @@ public class PlayerController : MonoBehaviour
         //alt medbevegelse og fuel & health-bar
         MoveInput = Input.GetAxisRaw("Horizontal");
         isFlying = Input.GetKey(KeyCode.Space);
+        Debug.Log(MoveInput);
     }
 
     void FixedUpdate()
     {
         //fysikk - Jetpack, fuel og bevegelse
 
-            Slider.value = fuel;
-            healthSlider.value = health;
-            if (rb.velocity.y == 0) { isGrounded = true; } else { isGrounded = false; }
+        Slider.value = fuel;
+        healthSlider.value = health;
+        if (rb.velocity.y == 0) { isGrounded = true; } else { isGrounded = false; }
 
-            if (isGrounded)
+        if (isGrounded)
+        {
+            fuel += fuelregen;
+        }
+
+
+        if (playerpos.transform.position.y <= -40)
+        {
+            playerpos.transform.position = new Vector3(0, 3, 0);
+            rb.velocity = new Vector3(0, 0, 0);
+        }
+
+        fuel = fuel > maxfuel ? maxfuel : fuel;
+
+        playerpos.transform.Translate(MoveInput * moveSpeed * Time.deltaTime, 0, 0);
+
+
+        if (isFlying && fuel >= 0.2f)
+        {
+            rb.AddForce(Vector2.up * jetpower * Time.deltaTime);
+            fuel = fuel - consumption;
+        }
+
+
+
+        health = health > maxhealth ? maxhealth : health;
+        if (health > 0)
+        {
+            if (Time.time > regenCoolDown)
             {
-                fuel += fuelregen;
+                health += healthregen;
             }
-
-
-            if(playerpos.transform.position.y <= -40)
-            {
-                playerpos.transform.position = new Vector3(0, 3, 0);
-                rb.velocity = new Vector3(0, 0, 0);
-            }
-
-            fuel = fuel > maxfuel ? maxfuel : fuel;
-
-            playerpos.transform.Translate(MoveInput * moveSpeed * Time.deltaTime, 0, 0);
-
-
-                if (isFlying && fuel >= 0.2f)
-                {
-                    rb.AddForce(Vector2.up * jetpower * Time.deltaTime);
-                    fuel = fuel - consumption;
-                }
-
-
-
-            health = health > maxhealth ? maxhealth : health;
-            if (health > 0)
-            {
-                if (Time.time > regenCoolDown)
-                {
-                    health += healthregen;
-                }
-            }
-            else
-            {
-                Destroy(this.gameObject);
-                SceneManager.LoadScene("Main Menu");
-            }
+        }
+        else
+        {
+            Destroy(this.gameObject);
+            SceneManager.LoadScene("Main Menu");
+        }
 
     }
 
@@ -133,13 +129,13 @@ public class PlayerController : MonoBehaviour
         {
             Damage();
         }
-        
+
     }
 
     void Damage()
     {
-            health -= 3.34f;
-            regenCoolDown = Time.time + startHealAfterTime;
-        
-    }    
+        health -= 3.34f;
+        regenCoolDown = Time.time + startHealAfterTime;
+
+    }
 }

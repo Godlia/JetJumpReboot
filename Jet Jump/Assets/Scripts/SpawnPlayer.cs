@@ -7,8 +7,8 @@ public class SpawnPlayer : MonoBehaviour
     public GameObject PlayerPrfb;
     public GameObject PlayerCam;
 
-    public bool spawnCam;
     public bool spawnPlayer;
+    public bool spawnCam;
 
     // Start is called before the first frame update
     void Start()
