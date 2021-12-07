@@ -15,7 +15,7 @@ public class GameplayManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     //find all players and push into arraylist
+        //find all players and push into arraylist
         players = new ArrayList();
         GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
         playerCount = playerObjects.Length;

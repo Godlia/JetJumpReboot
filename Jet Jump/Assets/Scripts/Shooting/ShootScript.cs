@@ -30,6 +30,11 @@ public class ShootScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Cam == null) {
+        Cam = GameObject.FindGameObjectWithTag("PlayerCamera").GetComponent<Camera>();
+        }
+
+
             Vector2 MousePos = Cam.ScreenToWorldPoint(Input.mousePosition);
             direction = MousePos - (Vector2)Gun.position;
             //FaceMouse();

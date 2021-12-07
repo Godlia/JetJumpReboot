@@ -18,6 +18,7 @@ TagManager:
   - PlayerCamera
   - State cam
   - HUD
+  - OtherPlayer
   layers:
   - Default
   - TransparentFX

@@ -54,20 +54,26 @@ public class PlayerController : NetworkBehaviour
 
 
 
-    public override void NetworkStart()
+    void Start()
     {
         //Bare setter noen variabler
         rb = GetComponent<Rigidbody2D>();
         fuel = maxfuel;
         health = maxhealth;
-        Slider = GameObject.FindGameObjectWithTag("FuelSlider").GetComponent<Slider>();
-        healthSlider = GameObject.FindGameObjectWithTag("HealthSlider").GetComponent<Slider>();
         SpriteRender = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
         netObj = GetComponent<NetworkObject>();
     }
 
     private void Update()
     {
+        if (healthSlider == null && Slider == null)
+        {
+
+            Slider = GameObject.FindGameObjectWithTag("FuelSlider").GetComponent<Slider>();
+            healthSlider = GameObject.FindGameObjectWithTag("HealthSlider").GetComponent<Slider>();
+        }
+
+
         //alt medbevegelse og fuel & health-bar
         MoveInput = Input.GetAxisRaw("Horizontal");
         isFlying = Input.GetKey(KeyCode.Space);

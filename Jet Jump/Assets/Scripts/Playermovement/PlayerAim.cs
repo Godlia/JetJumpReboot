@@ -15,7 +15,8 @@ public class PlayerAim : MonoBehaviour
     public SpriteRenderer sp;
 
 
-    private void Awake() {
+    private void Awake()
+    {
         aimTransform = transform.Find("Aim");
         aimAnimator = aimTransform.GetComponent<Animator>();
     }
@@ -37,8 +38,8 @@ public class PlayerAim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            HandleAiming();
-            RotateSprites();
+        HandleAiming();
+        RotateSprites();
     }
 
 
@@ -55,17 +56,23 @@ public class PlayerAim : MonoBehaviour
         angle = gunAngle;
     }
 
-    public void RotateSprites() {
-    if (angle < -90) {
-        GunSprite.flipY = true;
-        PlayerSprite.flipX = true;
-    } else if(angle > 90) {
-        GunSprite.flipY = true;
-        PlayerSprite.flipX = true;
-    } else {
-        GunSprite.flipY = false;
-        PlayerSprite.flipX = false;
-    }
+    public void RotateSprites()
+    {
+        if (angle < -90)
+        {
+            GunSprite.flipY = true;
+            PlayerSprite.flipX = true;
+        }
+        else if (angle > 90)
+        {
+            GunSprite.flipY = true;
+            PlayerSprite.flipX = true;
+        }
+        else
+        {
+            GunSprite.flipY = false;
+            PlayerSprite.flipX = false;
+        }
 
     }
 

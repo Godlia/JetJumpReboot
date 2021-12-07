@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-public class Networking : MonoBehaviour
+public class Networking : NetworkBehaviour
 {
     // Start is called before the first frame update
     private GameObject HUD;
     public GameObject stateCam;
+    [SerializeField]
+    private GameObject OtherPlayer;
+    [SerializeField]
+    private GameObject Player;
+
     private void Start()
     {
         //Important for linux server (It will scale infinitly if not set)
@@ -51,5 +56,36 @@ public class Networking : MonoBehaviour
         GUILayout.Label("Transport: " +
             NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetType().Name);
         GUILayout.Label("Mode: " + mode);
+    }
+
+    void Host()
+    {
+        SpawnHostServerRpc();
+    }
+
+    void Client()
+    {
+        SpawnClientServerRpc();
+    }
+
+
+    void Server()
+    {
+
+    }
+
+
+    [ServerRpc]
+    public void SpawnClientServerRpc()
+    {
+        GameObject go = Instantiate(OtherPlayer, new Vector3(0, 0, 0), Quaternion.identity);
+        go.GetComponent<NetworkObject>().Spawn();
+    }
+
+    [ServerRpc]
+    public void SpawnHostServerRpc()
+    {
+        GameObject go = Instantiate(Player, new Vector3(0, 0, 0), Quaternion.identity);
+        go.GetComponent<NetworkObject>().Spawn();
     }
 }

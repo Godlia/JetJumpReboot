@@ -11,7 +11,7 @@ public class BurstJump : MonoBehaviour
     private KeyCode burstjumpkey;
     public float burstjumppower = 30f * 100;
     public float burstrate;
-    
+
 
     [SerializeField]
     private Image imageCooldown;
@@ -38,11 +38,11 @@ public class BurstJump : MonoBehaviour
 
     void Update()
     {
-            if (Input.GetKeyDown(burstjumpkey))
-            {
-                useJump();
-            }
+        if (Input.GetKeyDown(burstjumpkey))
+        {
+            useJump();
         }
+    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -58,7 +58,7 @@ public class BurstJump : MonoBehaviour
     {
         coolDownTimer -= Time.deltaTime;
 
-        if (coolDownTimer < 0.0f )
+        if (coolDownTimer < 0.0f)
         {
             Audio.Play();
             //Når CoolDown er ferdig

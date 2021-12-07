@@ -1048,7 +1048,7 @@ GameObject:
   - component: {fileID: 970706616}
   m_Layer: 5
   m_Name: Fuelbar
-  m_TagString: Untagged
+  m_TagString: FuelSlider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1306,7 +1306,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1299636479}
-    PlayerPrefab: {fileID: 571409681555193856, guid: 0518453d8fcd87d41b16be6fbb87a420, type: 3}
+    PlayerPrefab: {fileID: 0}
     NetworkPrefabs:
     - Override: 0
       Prefab: {fileID: 571409681555193856, guid: 0518453d8fcd87d41b16be6fbb87a420, type: 3}
@@ -1318,6 +1318,11 @@ MonoBehaviour:
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 9163928097170828850, guid: d0755231ee672a2419f944507fcec5f3, type: 3}
+      SourcePrefabToOverride: {fileID: 9163928097170828850, guid: d0755231ee672a2419f944507fcec5f3, type: 3}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 571409681555193856, guid: 0518453d8fcd87d41b16be6fbb87a420, type: 3}
     TickRate: 60
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
@@ -1326,8 +1331,8 @@ MonoBehaviour:
     TimeResyncInterval: 30
     EnsureNetworkVariableLengthSafety: 0
     EnableSceneManagement: 1
-    ForceSamePrefabs: 1
-    RecycleNetworkIds: 1
+    ForceSamePrefabs: 0
+    RecycleNetworkIds: 0
     NetworkIdRecycleDelay: 120
     RpcHashSize: 0
     LoadSceneTimeOut: 120
@@ -1346,6 +1351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateCam: {fileID: 0}
+  OtherPlayer: {fileID: 0}
 --- !u!1 &1300260309
 GameObject:
   m_ObjectHideFlags: 0
@@ -1701,7 +1707,7 @@ GameObject:
   - component: {fileID: 1551143640}
   m_Layer: 5
   m_Name: Healthbar
-  m_TagString: Untagged
+  m_TagString: HealthSlider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
