@@ -19,6 +19,8 @@ public class Networking : NetworkBehaviour
         Application.targetFrameRate = 30;
         HUD = GameObject.FindGameObjectWithTag("HUD");
         HUD.SetActive(false);
+        OtherPlayer = Resources.Load<GameObject>("OtherPlayer");
+        Player = Resources.Load<GameObject>("Player");
     }
     void OnGUI()
     {
@@ -61,11 +63,13 @@ public class Networking : NetworkBehaviour
     void Host()
     {
         SpawnHostServerRpc();
+        Debug.Log("Hosting");
     }
 
     void Client()
     {
         SpawnClientServerRpc();
+        
     }
 
 
@@ -80,6 +84,7 @@ public class Networking : NetworkBehaviour
     {
         GameObject go = Instantiate(OtherPlayer, new Vector3(0, 0, 0), Quaternion.identity);
         go.GetComponent<NetworkObject>().Spawn();
+        Debug.Log("Spawned Client");
     }
 
     [ServerRpc]
@@ -87,5 +92,6 @@ public class Networking : NetworkBehaviour
     {
         GameObject go = Instantiate(Player, new Vector3(0, 0, 0), Quaternion.identity);
         go.GetComponent<NetworkObject>().Spawn();
+        Debug.Log("Spawned Host");
     }
 }

@@ -211,7 +211,6 @@ GameObject:
   - component: {fileID: -6377496869308582171}
   - component: {fileID: 7453635410664047866}
   - component: {fileID: 6194136195363118281}
-  - component: {fileID: -6069132748285031230}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -341,7 +340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gun: {fileID: 571409679825197985}
   Bullet: {fileID: 4600443133250700920, guid: 9dad415fc445c0542bc72d14b9955ed7, type: 3}
-  bulletspeed: 7
+  bulletspeed: 800
   shootPoint: {fileID: 571409681336349975}
   Source: {fileID: 0}
   Cam: {fileID: 0}
@@ -472,15 +471,3 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   CanCommitToTransform: 0
---- !u!114 &-6069132748285031230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 571409681555193856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -77,7 +77,6 @@ public class PlayerController : NetworkBehaviour
         //alt medbevegelse og fuel & health-bar
         MoveInput = Input.GetAxisRaw("Horizontal");
         isFlying = Input.GetKey(KeyCode.Space);
-        Debug.Log(MoveInput);
     }
 
     void FixedUpdate()
