@@ -20,7 +20,6 @@ public class ShootScript : MonoBehaviour
     void Start()
     {
         Source = GameObject.FindGameObjectWithTag("ShootSound").GetComponent<AudioSource>();
-        Cam = GameObject.FindGameObjectWithTag("PlayerCamera").GetComponent<Camera>();
     }
 
 

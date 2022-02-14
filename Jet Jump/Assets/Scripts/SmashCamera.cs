@@ -32,16 +32,8 @@ public class SmashCamera : MonoBehaviour
         if (targets.Count == 0)
             return;
 
-
-
-
-
-
-
         Move();
         Zoom();
-
-
     }
 
 

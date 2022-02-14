@@ -300,7 +300,7 @@ MonoBehaviour:
   moveSpeed: 6
   playerpos: {fileID: 571409681555193867}
   SpriteRender: {fileID: 571409681555193860}
-  jetpower: 2000
+  jetpower: 1500
   fuelregen: 0.04
   consumption: 0.1
   maxhealth: 10
@@ -382,7 +382,7 @@ MonoBehaviour:
   Audio: {fileID: 0}
   player: {fileID: 571409681555193856}
   rb: {fileID: 0}
-  burstjumppower: 3000
+  burstjumppower: 1500
   burstrate: 2.6
   imageCooldown: {fileID: 0}
   textCooldown: {fileID: 0}

@@ -1306,7 +1306,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1299636479}
-    PlayerPrefab: {fileID: 0}
+    PlayerPrefab: {fileID: 571409681555193856, guid: 0518453d8fcd87d41b16be6fbb87a420, type: 3}
     NetworkPrefabs:
     - Override: 0
       Prefab: {fileID: 571409681555193856, guid: 0518453d8fcd87d41b16be6fbb87a420, type: 3}
@@ -1352,6 +1352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateCam: {fileID: 0}
   OtherPlayer: {fileID: 0}
+  Player: {fileID: 0}
 --- !u!1 &1300260309
 GameObject:
   m_ObjectHideFlags: 0
