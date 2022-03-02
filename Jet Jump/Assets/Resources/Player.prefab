@@ -344,6 +344,7 @@ MonoBehaviour:
   shootPoint: {fileID: 571409681336349975}
   Source: {fileID: 0}
   Cam: {fileID: 0}
+  gunType: 0
   fireRate: 1
   gunAnimator: {fileID: 571409679825197989}
 --- !u!50 &571409681555193862
