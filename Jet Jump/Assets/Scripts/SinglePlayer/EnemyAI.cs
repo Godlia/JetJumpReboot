@@ -15,7 +15,9 @@ public class EnemyAI : MonoBehaviour
     public GameObject Player;
     public Transform PlayerT;
     public Transform ThisT;
-    private float DistanceToPlayer;
+
+    [SerializeField]
+    private int scoreAward;
     public bool ranged;
 
 
@@ -41,7 +43,7 @@ public class EnemyAI : MonoBehaviour
 
     void CheckIfTimeToFire()
     {
-        if (Time.time > nextFire && DistanceToPlayer < 10f)
+        if (Time.time > nextFire)
         {
             Instantiate(bullet, transform.position, Quaternion.identity);
             nextFire = Time.time + fireRate;
@@ -54,7 +56,25 @@ public class EnemyAI : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             Destroy(gameObject);
+            calculatePoints();
         }
 
+    }
+
+    void calculatePoints()
+    {
+        float points = 0;
+        points += scoreAward;
+        Score score = GameObject.FindGameObjectWithTag("ScoreCounter").GetComponent<Score>();
+
+        float dist = Vector3.Distance(PlayerT.position, ThisT.position);
+        Debug.Log("Distance: " + dist);
+        if (dist > 10)
+        {
+            points *= 1.25f;
+            Debug.Log("Longshot!");
+
+        }
+        score.setScore(score.getScore() + Mathf.RoundToInt(points));
     }
 }

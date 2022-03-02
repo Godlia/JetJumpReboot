@@ -19,6 +19,7 @@ TagManager:
   - State cam
   - HUD
   - OtherPlayer
+  - ScoreCounter
   layers:
   - Default
   - TransparentFX

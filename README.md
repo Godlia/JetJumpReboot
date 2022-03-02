@@ -17,3 +17,5 @@ Spillet skal hovedsakelig være liknende en Roguelike platformer, hvor du må kj
 - [ ] Forskjellige våpen
 - [ ] Mer kunst og bakgrunner
 - [ ] Score-counter og leaderboard
+
+
