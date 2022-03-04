@@ -319,13 +319,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 571409681555193856}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d506d7e3e7feda4284bb3a96324bf24, type: 3}
+  m_Script: {fileID: 11500000, guid: 55584f7246a65fe48937b3b8ef159a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 571409681555193856}
   PlayerSprite: {fileID: 571409681555193860}
   GunSprite: {fileID: 571409679825197984}
-  sp: {fileID: 571409681555193860}
+  sp: {fileID: 0}
 --- !u!114 &6532557416902459027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,11 +340,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gun: {fileID: 571409679825197985}
   Bullet: {fileID: 4600443133250700920, guid: 9dad415fc445c0542bc72d14b9955ed7, type: 3}
-  bulletspeed: 800
+  bulletspeed: 20
   shootPoint: {fileID: 571409681336349975}
   Source: {fileID: 0}
   Cam: {fileID: 0}
   gunType: 0
+  shotGunPellets: 5
   fireRate: 1
   gunAnimator: {fileID: 571409679825197989}
 --- !u!50 &571409681555193862

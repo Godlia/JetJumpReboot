@@ -44,7 +44,7 @@ public class CooldownScript : MonoBehaviour
         }
     }
 
-    public void useSpell()
+    public void useAbility()
     {
         if (isCooldown)
         {

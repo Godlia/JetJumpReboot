@@ -11,12 +11,4 @@ public class Bullet : MonoBehaviour
             Destroy(this.gameObject);
         } 
     }
-
-    private void Update()
-    {
-        Destroy(this.gameObject, 2f);
-    }
-
-
-
 }
