@@ -325,7 +325,7 @@ MonoBehaviour:
   Player: {fileID: 571409681555193856}
   PlayerSprite: {fileID: 571409681555193860}
   GunSprite: {fileID: 571409679825197984}
-  sp: {fileID: 0}
+  cam: {fileID: 0}
 --- !u!114 &6532557416902459027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,6 +348,9 @@ MonoBehaviour:
   shotGunPellets: 5
   fireRate: 1
   gunAnimator: {fileID: 571409679825197989}
+  gunSprites:
+  - {fileID: 21300000, guid: 17b4628a3de7cab43b5e5b4a0cb86162, type: 3}
+  - {fileID: 21300000, guid: 52417492f4e3c6348abc8a2c067d507d, type: 3}
 --- !u!50 &571409681555193862
 Rigidbody2D:
   serializedVersion: 4

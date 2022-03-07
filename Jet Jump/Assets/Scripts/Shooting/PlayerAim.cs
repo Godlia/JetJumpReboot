@@ -5,9 +5,7 @@ using UnityEngine;
 public class PlayerAim : MonoBehaviour
 {
     public GameObject Player;
-
     public SpriteRenderer PlayerSprite;
-
     public SpriteRenderer GunSprite;
     private Transform aimTransform;
     private Animator aimAnimator;
@@ -15,10 +13,11 @@ public class PlayerAim : MonoBehaviour
 
     public Camera cam;
 
-    private void Start()
+    void Start()
     {
         aimTransform = transform.Find("Aim");
         aimAnimator = aimTransform.GetComponent<Animator>();
+        cam = GameObject.FindGameObjectWithTag("PlayerCamera").GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -26,15 +25,12 @@ public class PlayerAim : MonoBehaviour
     {
         HandleAiming();
         RotateSprites();
-        if(cam == null) {
-        cam = GameObject.FindGameObjectWithTag("PlayerCamera").GetComponent<Camera>();
-        }
     }
 
 
     public void HandleAiming()
     {
-        Vector2 direction; 
+        Vector2 direction;
         Vector2 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
         direction = mousePosition - (Vector2)this.transform.position;
 
@@ -42,7 +38,6 @@ public class PlayerAim : MonoBehaviour
         float gunAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         aimTransform.eulerAngles = new Vector3(0, 0, gunAngle);
         angle = gunAngle;
-        Debug.Log(direction + " " + aimDirection + "" + gunAngle + " " + angle);
     }
 
     public void RotateSprites()

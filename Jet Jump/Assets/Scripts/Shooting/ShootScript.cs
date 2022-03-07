@@ -19,6 +19,9 @@ public class ShootScript : MonoBehaviour
     //finner camera så vi kan finne hvor musepekeren er i verden
     public Camera Cam;
     //en egen datatype for å finne hvilken type våpen det er
+
+    [SerializeField]
+    private SpriteRenderer gunRenderer;
     public enum gunShootType
     {
         Pistol,
@@ -34,8 +37,10 @@ public class ShootScript : MonoBehaviour
     private float readyForNextShot;
     //Gir tilgang til animasjonen til pistolen, i.e rekyl
     public Animator gunAnimator;
-
     private float weaponSpread;
+
+    [SerializeField]
+    private Sprite[] gunSprites; 
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +48,8 @@ public class ShootScript : MonoBehaviour
         //Finn lydkilden før spillet starter
         Source = GameObject.FindGameObjectWithTag("ShootSound").GetComponent<AudioSource>();
         gunType = gunShootType.Pistol;
+        gunRenderer = GameObject.Find("Gun").GetComponent<SpriteRenderer>();
+        gunRenderer.sprite = gunSprites[0];
     }
 
 
@@ -68,17 +75,17 @@ public class ShootScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             gunType = gunShootType.Pistol;
-            Debug.Log("Pistol");
+            gunRenderer.sprite = gunSprites[0];
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             gunType = gunShootType.Rifle;
-            Debug.Log("Rifle");
+            gunRenderer.sprite = gunSprites[1];
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             gunType = gunShootType.Shotgun;
-            Debug.Log("Shotgun");
+            gunRenderer.sprite = gunSprites[2];
         }
 
 
