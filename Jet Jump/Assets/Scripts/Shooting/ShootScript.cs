@@ -48,7 +48,8 @@ public class ShootScript : MonoBehaviour
         //Finn lydkilden før spillet starter
         Source = GameObject.FindGameObjectWithTag("ShootSound").GetComponent<AudioSource>();
         gunType = gunShootType.Pistol;
-        gunRenderer = GameObject.Find("Gun").GetComponent<SpriteRenderer>();
+        //Dette vil ikke funke i multiplayer
+        gunRenderer = GameObject.Find("Gun").GetComponent<SpriteRenderer>();    
         gunRenderer.sprite = gunSprites[0];
     }
 
@@ -128,8 +129,6 @@ public class ShootScript : MonoBehaviour
         {
             for (int i = 0; i < shotGunPellets; i++)
             {
-
-
                 float spreadY = Random.Range(-weaponSpread, weaponSpread);
 
                 Quaternion spread = Quaternion.Euler(0f, 0f, transform.eulerAngles.z + Random.Range(-spreadY, spreadY));
