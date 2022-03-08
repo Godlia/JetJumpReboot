@@ -211,7 +211,7 @@ GameObject:
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -345,10 +345,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d506d7e3e7feda4284bb3a96324bf24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
   Player: {fileID: 571409681555193856}
   PlayerSprite: {fileID: 571409681555193860}
   GunSprite: {fileID: 571409679825197984}
   sp: {fileID: 571409681555193860}
+=======
+  Gun: {fileID: 571409679825197985}
+  Bullet: {fileID: 4600443133250700920, guid: 9dad415fc445c0542bc72d14b9955ed7, type: 3}
+  bulletspeed: 20
+  shootPoint: {fileID: 571409681336349975}
+  Source: {fileID: 0}
+  Cam: {fileID: 0}
+  gunRenderer: {fileID: 0}
+  gunType: 1
+  shotGunPellets: 5
+  fireRate: 1
+  gunAnimator: {fileID: 571409679825197989}
+  gunSprites:
+  - {fileID: 21300000, guid: 17b4628a3de7cab43b5e5b4a0cb86162, type: 3}
+  - {fileID: 21300000, guid: 52417492f4e3c6348abc8a2c067d507d, type: 3}
+>>>>>>> Stashed changes
 --- !u!50 &571409681555193862
 Rigidbody2D:
   serializedVersion: 4
