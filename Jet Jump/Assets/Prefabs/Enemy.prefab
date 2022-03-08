@@ -152,6 +152,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   PlayerT: {fileID: 0}
   ThisT: {fileID: 0}
+  scoreAward: 100
   ranged: 0
 --- !u!58 &3334930061069841584
 CircleCollider2D:

@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.Netcode;
 
-public class LoadGameOnPress : MonoBehaviour
+public class LoadGameOnPress : NetworkBehaviour
 {
     public String SceneName;
     public KeyCode Key;
+
+    public bool loadWithNetcode;
 
     public void LoadSceneFromButton(string SceneName)
     {
@@ -28,4 +31,21 @@ public class LoadGameOnPress : MonoBehaviour
     {
         Application.Quit();
     }
+
+    //network scenemanager loades sceneName
+    public void LoadScene(string SceneName)
+    {
+        if (loadWithNetcode)
+        {
+            //NetworkSceneManager.LoadScene(SceneName);
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneName);
+        }
+    }
+
+    
+    
+
 }

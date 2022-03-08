@@ -15,7 +15,7 @@ public class CooldownScript : MonoBehaviour
     private bool isCooldown = false;
     [SerializeField]
     private float coolDownTime = 0.0f;
-    
+
     private float coolDownTimer = 0.0f;
 
 
@@ -31,7 +31,7 @@ public class CooldownScript : MonoBehaviour
     {
         coolDownTimer -= Time.deltaTime;
 
-        if(coolDownTimer < 0.0f)
+        if (coolDownTimer < 0.0f)
         {
             isCooldown = false;
             textCooldown.gameObject.SetActive(false);
@@ -44,7 +44,7 @@ public class CooldownScript : MonoBehaviour
         }
     }
 
-    public void useSpell()
+    public void useAbility()
     {
         if (isCooldown)
         {
