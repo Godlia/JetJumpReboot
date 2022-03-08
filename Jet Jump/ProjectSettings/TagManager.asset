@@ -16,6 +16,10 @@ TagManager:
   - CooldownFill
   - CooldownText
   - PlayerCamera
+  - State cam
+  - HUD
+  - OtherPlayer
+  - ScoreCounter
   layers:
   - Default
   - TransparentFX
@@ -28,7 +32,7 @@ TagManager:
   - Ground
   - Enemy
   - EnemyBullet
-  - 
+  - Bullet
   - 
   - 
   - 

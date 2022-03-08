@@ -1,9 +1,3 @@
-<<<<<<< Updated upstream
-# JetJumpReboot
-Basically a high-paced platform multiplayer shooter game, akin to smash bros - but with guns.
-Created by Eirik HK [Godlia]
-=======
-
 # Jet Jump
 ## Hva er det?
 Jet Jump er et lite spill jeg bestemte meg å lage for at jeg skulle lære meg koding. 
@@ -23,6 +17,3 @@ Spillet skal hovedsakelig være liknende en Roguelike platformer, hvor du må kj
 - [ ] Mer kunst og bakgrunner
 - [ ] Score-counter og leaderboard
 
-
-
->>>>>>> Stashed changes
