@@ -340,17 +340,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gun: {fileID: 571409679825197985}
   Bullet: {fileID: 4600443133250700920, guid: 9dad415fc445c0542bc72d14b9955ed7, type: 3}
-  bulletspeed: 20
+  bulletspeed: 1
   shootPoint: {fileID: 571409681336349975}
   Source: {fileID: 0}
   Cam: {fileID: 0}
+  gunRenderer: {fileID: 0}
   gunType: 0
-  shotGunPellets: 5
-  fireRate: 1
+  shotGunPellets: 8
   gunAnimator: {fileID: 571409679825197989}
   gunSprites:
   - {fileID: 21300000, guid: 17b4628a3de7cab43b5e5b4a0cb86162, type: 3}
   - {fileID: 21300000, guid: 52417492f4e3c6348abc8a2c067d507d, type: 3}
+  - {fileID: 21300000, guid: c30a4222ce1850644bebcf8aea75eb1f, type: 3}
 --- !u!50 &571409681555193862
 Rigidbody2D:
   serializedVersion: 4

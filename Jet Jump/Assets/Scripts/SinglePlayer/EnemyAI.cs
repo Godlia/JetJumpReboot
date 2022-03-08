@@ -39,6 +39,11 @@ public class EnemyAI : MonoBehaviour
             CheckIfTimeToFire();
         }
         if (ThisT.position.y < -40) { Destroy(this.gameObject); }
+
+        if(health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     void CheckIfTimeToFire()
@@ -55,10 +60,15 @@ public class EnemyAI : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet")
         {
-            Destroy(gameObject);
+            Damage(collision.gameObject.GetComponent<Bullet>().bulldmg);
             calculatePoints();
         }
 
+    }
+
+
+    void Damage(int dmg) {
+        health -= dmg;
     }
 
     void calculatePoints()

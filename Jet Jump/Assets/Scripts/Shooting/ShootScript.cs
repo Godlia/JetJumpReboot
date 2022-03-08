@@ -32,7 +32,7 @@ public class ShootScript : MonoBehaviour
     public gunShootType gunType;
     //Definerer hvor lang tid mellom skudd
     public int shotGunPellets;
-    public float fireRate;
+    private float fireRate;
     //en timestamp som blir brukt sammen med fireRate
     private float readyForNextShot;
     //Gir tilgang til animasjonen til pistolen, i.e rekyl
@@ -40,7 +40,7 @@ public class ShootScript : MonoBehaviour
     private float weaponSpread;
 
     [SerializeField]
-    private Sprite[] gunSprites; 
+    private Sprite[] gunSprites;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +49,7 @@ public class ShootScript : MonoBehaviour
         Source = GameObject.FindGameObjectWithTag("ShootSound").GetComponent<AudioSource>();
         gunType = gunShootType.Pistol;
         //Dette vil ikke funke i multiplayer
-        gunRenderer = GameObject.Find("Gun").GetComponent<SpriteRenderer>();    
+        gunRenderer = GameObject.Find("Gun").GetComponent<SpriteRenderer>();
         gunRenderer.sprite = gunSprites[0];
     }
 
@@ -76,21 +76,15 @@ public class ShootScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             gunType = gunShootType.Pistol;
-            gunRenderer.sprite = gunSprites[0];
-            gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(2, 2, 1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             gunType = gunShootType.Rifle;
-            gunRenderer.sprite = gunSprites[1];
-            gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(4, 4, 1);
-            
+
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             gunType = gunShootType.Shotgun;
-            gunRenderer.sprite = gunSprites[2];
-            gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(3, 3, 1);
         }
 
 
@@ -102,14 +96,20 @@ public class ShootScript : MonoBehaviour
             case gunShootType.Pistol:
                 fireRate = 1f;
                 weaponSpread = 0.1f;
+                gunRenderer.sprite = gunSprites[0];
+                gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(2, 2, 1);
                 break;
             case gunShootType.Rifle:
                 fireRate = 3f;
                 weaponSpread = 10f;
+                gunRenderer.sprite = gunSprites[1];
+                gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(4, 4, 1);
                 break;
             case gunShootType.Shotgun:
                 fireRate = 0.8f;
-                weaponSpread = 500f;
+                weaponSpread = 20f;
+                gunRenderer.sprite = gunSprites[2];
+                gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(3, 3, 1);
                 break;
         }
 
@@ -143,7 +143,7 @@ public class ShootScript : MonoBehaviour
 
                 Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
 
-                bullet.GetComponent<Rigidbody2D>().velocity = direction.normalized * bulletspeed;
+                bullet.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(direction.x, direction.y) * bulletspeed);
                 Destroy(bullet, 2f);
             }
             gunAnimator.SetTrigger("Shoot");
@@ -153,9 +153,16 @@ public class ShootScript : MonoBehaviour
         else
         {
             float spreadY = Random.Range(-weaponSpread, weaponSpread);
-            Quaternion spread = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + spreadY, 0);
+
+            Quaternion spread = Quaternion.Euler(0f, 0f, transform.eulerAngles.z + Random.Range(-spreadY, spreadY));
+
+            //Debug.Log("SpreadY= " + spreadY + " | Qspread= " + spread);
+
             GameObject bullet = Instantiate(Bullet, shootPoint.position, spread);
-            bullet.GetComponent<Rigidbody2D>().velocity = direction.normalized * bulletspeed;
+
+            Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
+
+            bullet.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(direction.x * bulletspeed, direction.y * bulletspeed));
             Destroy(bullet, 2f);
             gunAnimator.SetTrigger("Shoot");
             Source.Play();
