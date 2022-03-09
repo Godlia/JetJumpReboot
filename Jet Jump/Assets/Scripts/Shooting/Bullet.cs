@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
     }
 
     void FixedUpdate() {
-        Debug.Log(Mathf.Abs(this.GetComponent<Rigidbody2D>().velocity.normalized.x));
+        //Debug.Log(Mathf.Abs(this.GetComponent<Rigidbody2D>().velocity.normalized.x));
         if((Mathf.Abs(this.GetComponent<Rigidbody2D>().velocity.normalized.x) > 0.5f)) { // this don't work
             //Destroy(this.gameObject);
         }

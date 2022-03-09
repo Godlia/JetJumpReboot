@@ -42,6 +42,7 @@ public class EnemyAI : MonoBehaviour
 
         if(health <= 0)
         {
+            calculatePoints();
             Destroy(this.gameObject);
         }
     }
@@ -61,7 +62,6 @@ public class EnemyAI : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             Damage(collision.gameObject.GetComponent<Bullet>().bulldmg);
-            calculatePoints();
         }
 
     }

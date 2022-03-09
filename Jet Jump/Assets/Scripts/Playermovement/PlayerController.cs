@@ -42,6 +42,7 @@ public class PlayerController : NetworkBehaviour
 
     public Slider healthSlider;
 
+    public Upgrades upgrades;
 
     private Vector2 oldNetPosisition;
 
@@ -62,6 +63,7 @@ public class PlayerController : NetworkBehaviour
         health = maxhealth;
         SpriteRender = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
         netObj = GetComponent<NetworkObject>();
+        upgrades = GameObject.Find("GameplayManager").GetComponent<Upgrades>();
     }
 
     private void Update()

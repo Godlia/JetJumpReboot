@@ -25,7 +25,7 @@ public class BurstJump : MonoBehaviour
     private float coolDownTimer = 0.0f;
 
 
-    void Awake()
+    void Start()
     {
         rb = player.GetComponent<Rigidbody2D>();
         burstjumpkey = KeyCode.E;

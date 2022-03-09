@@ -41,6 +41,7 @@ public class ShootScript : MonoBehaviour
 
     [SerializeField]
     private Sprite[] gunSprites;
+    public Upgrades upgrades;
 
     // Start is called before the first frame update
     void Start()
@@ -50,7 +51,9 @@ public class ShootScript : MonoBehaviour
         gunType = gunShootType.Pistol;
         //Dette vil ikke funke i multiplayer
         gunRenderer = GameObject.Find("Gun").GetComponent<SpriteRenderer>();
+
         gunRenderer.sprite = gunSprites[0];
+        upgrades = GameObject.Find("GameplayManager").GetComponent<Upgrades>();
     }
 
 
@@ -76,21 +79,71 @@ public class ShootScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             gunType = gunShootType.Pistol;
+            switchWeapon();
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             gunType = gunShootType.Rifle;
-
+            switchWeapon();
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             gunType = gunShootType.Shotgun;
+            switchWeapon();
         }
 
 
 
 
 
+
+
+
+        if (Input.GetMouseButton(0))
+        {
+            if (Time.time > readyForNextShot)
+            {
+                readyForNextShot = Time.time + 1 / (fireRate * upgrades.getMarkiplier("fireRate"));
+                Debug.Log("Firerate: " + 1 / (fireRate * upgrades.getMarkiplier("fireRate")));
+                shoot();
+            }
+        }
+    }
+
+
+
+    private void shoot()
+    {
+
+        if (gunType == gunShootType.Shotgun)
+        {
+            for (int i = 0; i < shotGunPellets * upgrades.getMarkiplier("bullets"); i++)
+            {
+                float spreadY = Random.Range(-weaponSpread, weaponSpread);
+                Quaternion spread = Quaternion.Euler(0f, 0f, transform.eulerAngles.z + Random.Range(-spreadY, spreadY));
+                GameObject bullet = Instantiate(Bullet, shootPoint.position, spread);
+                Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
+                bullet.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(direction.x, direction.y) * bulletspeed);
+                Destroy(bullet, 0.5f);
+            }
+            gunAnimator.SetTrigger("Shoot");
+            Source.Play();
+
+        }
+        else
+        {
+            float spreadY = Random.Range(-weaponSpread, weaponSpread);
+            Quaternion spread = Quaternion.Euler(0f, 0f, transform.eulerAngles.z + Random.Range(-spreadY, spreadY));
+            GameObject bullet = Instantiate(Bullet, shootPoint.position, spread);
+            Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
+            bullet.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(direction.x * bulletspeed, direction.y * bulletspeed));
+            Destroy(bullet, 2f);
+            gunAnimator.SetTrigger("Shoot");
+            Source.Play();
+        }
+    }
+    void switchWeapon()
+    {
         switch (gunType)
         {
             case gunShootType.Pistol:
@@ -101,9 +154,9 @@ public class ShootScript : MonoBehaviour
                 break;
             case gunShootType.Rifle:
                 fireRate = 3f;
-                weaponSpread = 10f;
+                weaponSpread = 12.5f;
                 gunRenderer.sprite = gunSprites[1];
-                gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(4, 4, 1);
+                gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(3, 3, 1);
                 break;
             case gunShootType.Shotgun:
                 fireRate = 0.8f;
@@ -111,61 +164,6 @@ public class ShootScript : MonoBehaviour
                 gunRenderer.sprite = gunSprites[2];
                 gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(3, 3, 1);
                 break;
-        }
-
-
-        if (Input.GetMouseButton(0))
-        {
-            if (Time.time > readyForNextShot)
-            {
-                readyForNextShot = Time.time + 1 / fireRate;
-                shoot();
-            }
-        }
-    }
-
-
-
-    public void shoot()
-    {
-
-        if (gunType == gunShootType.Shotgun)
-        {
-            for (int i = 0; i < shotGunPellets; i++)
-            {
-                float spreadY = Random.Range(-weaponSpread, weaponSpread);
-
-                Quaternion spread = Quaternion.Euler(0f, 0f, transform.eulerAngles.z + Random.Range(-spreadY, spreadY));
-
-                Debug.Log("SpreadY= " + spreadY + " | Qspread= " + spread);
-
-                GameObject bullet = Instantiate(Bullet, shootPoint.position, spread);
-
-                Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
-
-                bullet.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(direction.x, direction.y) * bulletspeed);
-                Destroy(bullet, 2f);
-            }
-            gunAnimator.SetTrigger("Shoot");
-            Source.Play();
-
-        }
-        else
-        {
-            float spreadY = Random.Range(-weaponSpread, weaponSpread);
-
-            Quaternion spread = Quaternion.Euler(0f, 0f, transform.eulerAngles.z + Random.Range(-spreadY, spreadY));
-
-            //Debug.Log("SpreadY= " + spreadY + " | Qspread= " + spread);
-
-            GameObject bullet = Instantiate(Bullet, shootPoint.position, spread);
-
-            Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
-
-            bullet.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(direction.x * bulletspeed, direction.y * bulletspeed));
-            Destroy(bullet, 2f);
-            gunAnimator.SetTrigger("Shoot");
-            Source.Play();
         }
     }
 }

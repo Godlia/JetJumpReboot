@@ -22,11 +22,6 @@ public class CooldownScript : MonoBehaviour
 
 
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     void ApplyCoolDown()
     {
         coolDownTimer -= Time.deltaTime;

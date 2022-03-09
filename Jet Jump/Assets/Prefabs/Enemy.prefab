@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f84d8c7fb8018ab4087c1e9a69c96033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 4
   distance: 2
   Enemy: {fileID: 3334930061069841586}
   groundDetection: {fileID: 3334930060985857779}
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 583668092346350320, guid: 54760d2bb2812024d9839d646ba97e69, type: 3}
-  health: 20
+  health: 9
   bulldmg: 5
   Player: {fileID: 0}
   PlayerT: {fileID: 0}
