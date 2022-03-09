@@ -43,6 +43,9 @@ public class ShootScript : MonoBehaviour
     private Sprite[] gunSprites;
     public Upgrades upgrades;
 
+    public AudioClip[] cockSounds;
+    [SerializeField] private AudioSource cockPlayer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -107,7 +110,7 @@ public class ShootScript : MonoBehaviour
                 Debug.Log("shot");
                 readyForNextShot = Time.time + 1 / fireRate;
                 Debug.Log(readyForNextShot);
-                
+
                 shoot();
             }
         }
@@ -149,6 +152,8 @@ public class ShootScript : MonoBehaviour
         switch (gunType)
         {
             case gunShootType.Pistol:
+                cockPlayer.clip = cockSounds[0];
+                cockPlayer.Play();
                 fireRate = 1f;
                 weaponSpread = 0.1f;
                 bulletspeed = 1f;
@@ -156,6 +161,8 @@ public class ShootScript : MonoBehaviour
                 gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(2, 2, 1);
                 break;
             case gunShootType.Rifle:
+                cockPlayer.clip = cockSounds[1];
+                cockPlayer.Play();
                 fireRate = 3f;
                 weaponSpread = 12.5f;
                 bulletspeed = 1f;
@@ -163,6 +170,8 @@ public class ShootScript : MonoBehaviour
                 gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(3, 3, 1);
                 break;
             case gunShootType.Shotgun:
+                cockPlayer.clip = cockSounds[2];
+                cockPlayer.Play();
                 fireRate = 0.8f;
                 weaponSpread = 20f;
                 bulletspeed = 1f;

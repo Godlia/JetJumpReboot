@@ -355,6 +355,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 52417492f4e3c6348abc8a2c067d507d, type: 3}
   - {fileID: 21300000, guid: c30a4222ce1850644bebcf8aea75eb1f, type: 3}
   upgrades: {fileID: 0}
+  cockSounds:
+  - {fileID: 8300000, guid: b1c045c56d1ef874b9ef89b594cd67ca, type: 3}
+  - {fileID: 8300000, guid: 6dc5ce9bbfe525140b05367bc321230b, type: 3}
+  - {fileID: 8300000, guid: 0da8f5a980ca3f9408c2d0deadffa7b7, type: 3}
 --- !u!50 &571409681555193862
 Rigidbody2D:
   serializedVersion: 4
