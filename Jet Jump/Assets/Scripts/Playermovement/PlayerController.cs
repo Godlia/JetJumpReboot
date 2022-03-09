@@ -38,7 +38,7 @@ public class PlayerController : NetworkBehaviour
     public float startHealAfterTime;
     private float regenCoolDown;
 
-    public Slider Slider;
+    public Slider slider;
 
     public Slider healthSlider;
 
@@ -64,16 +64,12 @@ public class PlayerController : NetworkBehaviour
         SpriteRender = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
         netObj = GetComponent<NetworkObject>();
         upgrades = GameObject.Find("GameplayManager").GetComponent<Upgrades>();
+        slider = GameObject.FindGameObjectWithTag("FuelSlider").GetComponent<Slider>();
+        healthSlider = GameObject.FindGameObjectWithTag("HealthSlider").GetComponent<Slider>();
     }
 
     private void Update()
     {
-        if (healthSlider == null && Slider == null)
-        {
-
-            Slider = GameObject.FindGameObjectWithTag("FuelSlider").GetComponent<Slider>();
-            healthSlider = GameObject.FindGameObjectWithTag("HealthSlider").GetComponent<Slider>();
-        }
 
 
         //alt medbevegelse og fuel & health-bar
@@ -81,13 +77,18 @@ public class PlayerController : NetworkBehaviour
         isFlying = Input.GetKey(KeyCode.Space);
     }
 
+
+
     void FixedUpdate()
     {
         //fysikk - Jetpack, fuel og bevegelse
 
-        Slider.value = fuel;
+        slider.value = fuel;
         healthSlider.value = health;
-        if (rb.velocity.y == 0) { isGrounded = true; } else { isGrounded = false; }
+
+        //ternary if
+        isGrounded = rb.velocity.y == 0 ? true : false;
+
 
         if (isGrounded)
         {
@@ -115,6 +116,7 @@ public class PlayerController : NetworkBehaviour
 
 
         health = health > maxhealth ? maxhealth : health;
+
         if (health > 0)
         {
             if (Time.time > regenCoolDown)
@@ -141,8 +143,17 @@ public class PlayerController : NetworkBehaviour
 
     void Damage()
     {
-        health -= 3.34f;
+        health -= Random.Range(3f, 3.5f);
         regenCoolDown = Time.time + startHealAfterTime;
 
     }
+
+    public void Upgrade()
+    {
+        moveSpeed *= upgrades.getMarkiplier("speed");
+        maxhealth *= upgrades.getMarkiplier("health");
+        maxfuel *= upgrades.getMarkiplier("fuel");
+
+    }
 }
+

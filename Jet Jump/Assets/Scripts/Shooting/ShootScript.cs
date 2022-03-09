@@ -32,7 +32,7 @@ public class ShootScript : MonoBehaviour
     public gunShootType gunType;
     //Definerer hvor lang tid mellom skudd
     public int shotGunPellets;
-    private float fireRate;
+    [SerializeField] private float fireRate;
     //en timestamp som blir brukt sammen med fireRate
     private float readyForNextShot;
     //Gir tilgang til animasjonen til pistolen, i.e rekyl
@@ -49,6 +49,7 @@ public class ShootScript : MonoBehaviour
         //Finn lydkilden før spillet starter
         Source = GameObject.FindGameObjectWithTag("ShootSound").GetComponent<AudioSource>();
         gunType = gunShootType.Pistol;
+        switchWeapon();
         //Dette vil ikke funke i multiplayer
         gunRenderer = GameObject.Find("Gun").GetComponent<SpriteRenderer>();
 
@@ -103,8 +104,10 @@ public class ShootScript : MonoBehaviour
         {
             if (Time.time > readyForNextShot)
             {
-                readyForNextShot = Time.time + 1 / (fireRate * upgrades.getMarkiplier("fireRate"));
-                Debug.Log("Firerate: " + 1 / (fireRate * upgrades.getMarkiplier("fireRate")));
+                Debug.Log("shot");
+                readyForNextShot = Time.time + 1 / fireRate;
+                Debug.Log(readyForNextShot);
+                
                 shoot();
             }
         }
@@ -114,10 +117,9 @@ public class ShootScript : MonoBehaviour
 
     private void shoot()
     {
-
         if (gunType == gunShootType.Shotgun)
         {
-            for (int i = 0; i < shotGunPellets * upgrades.getMarkiplier("bullets"); i++)
+            for (int i = 0; i < shotGunPellets; i++)
             {
                 float spreadY = Random.Range(-weaponSpread, weaponSpread);
                 Quaternion spread = Quaternion.Euler(0f, 0f, transform.eulerAngles.z + Random.Range(-spreadY, spreadY));
@@ -149,21 +151,31 @@ public class ShootScript : MonoBehaviour
             case gunShootType.Pistol:
                 fireRate = 1f;
                 weaponSpread = 0.1f;
+                bulletspeed = 1f;
                 gunRenderer.sprite = gunSprites[0];
                 gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(2, 2, 1);
                 break;
             case gunShootType.Rifle:
                 fireRate = 3f;
                 weaponSpread = 12.5f;
+                bulletspeed = 1f;
                 gunRenderer.sprite = gunSprites[1];
                 gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(3, 3, 1);
                 break;
             case gunShootType.Shotgun:
                 fireRate = 0.8f;
                 weaponSpread = 20f;
+                bulletspeed = 1f;
                 gunRenderer.sprite = gunSprites[2];
                 gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(3, 3, 1);
                 break;
         }
+    }
+
+    public void Upgrade()
+    {
+        fireRate *= upgrades.getMarkiplier("fireRate");
+        bulletspeed *= upgrades.getMarkiplier("bulletSpeed");
+        shotGunPellets += Mathf.RoundToInt(upgrades.getMarkiplier("bullets")) - 1;
     }
 }

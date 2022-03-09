@@ -5,13 +5,11 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
 
-    [SerializeField]
-    GameObject bullet;
+    [SerializeField] private GameObject bullet;
 
     float fireRate;
     float nextFire;
-    public float health = 20f;
-    public float bulldmg = 5f;
+    public float health = 10f;
     public GameObject Player;
     public Transform PlayerT;
     public Transform ThisT;
@@ -67,7 +65,7 @@ public class EnemyAI : MonoBehaviour
     }
 
 
-    void Damage(int dmg) {
+    void Damage(float dmg) {
         health -= dmg;
     }
 

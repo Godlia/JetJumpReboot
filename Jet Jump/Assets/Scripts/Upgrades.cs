@@ -19,31 +19,41 @@ public class Upgrades : MonoBehaviour
     [SerializeField] private float projectileSpeedMultiplier = 1.0f;
     [SerializeField] private float fireRateMultiplier = 1.0f;
     [SerializeField] private float spreadMultiplier = 1.0f;
-    [SerializeField] private float bulletsMultiplier = 1.0f;
+    [SerializeField] private int bulletsMultiplier = 1;
     [SerializeField] private float healthMultiplier = 1.0f;
     [SerializeField] private float fuelMultiplier = 1.0f;
     [SerializeField] private float fuelRegainMultiplier = 1.0f;
 
+    public bool update;
+
+    void Update() {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if(update) {
+            player.GetComponent<ShootScript>().Upgrade();
+            player.GetComponent<PlayerController>().Upgrade();
+            update = false;
+        }
+    }
 
     public float getMarkiplier(string multiplierName) {
         switch(multiplierName) {
-            case "speed":
+            case "speed": //implemented
                 return speedMultiplier;
-            case "damage":
+            case "damage": //implemented
                 return damageMultiplier;
-            case "projectileSpeed":
+            case "projectileSpeed": //implemented
                 return projectileSpeedMultiplier;
-            case "fireRate":
+            case "fireRate": //implemented
                 return fireRateMultiplier;
-            case "spread":
+            case "spread": //implemented
                 return spreadMultiplier;
-            case "bullets":
+            case "bullets": //implemented
                 return bulletsMultiplier;
-            case "health":
+            case "health": //implemented
                 return healthMultiplier;
-            case "fuel":
+            case "fuel": //implemented
                 return fuelMultiplier;
-            case "fuelRegain":
+            case "fuelRegain": //implemented
                 return fuelRegainMultiplier;
             default:
                 return 1.0f;

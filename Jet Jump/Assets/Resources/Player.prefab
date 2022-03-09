@@ -305,8 +305,9 @@ MonoBehaviour:
   consumption: 0.1
   maxhealth: 10
   startHealAfterTime: 3
-  Slider: {fileID: 0}
+  slider: {fileID: 0}
   healthSlider: {fileID: 0}
+  upgrades: {fileID: 0}
   networkPosition:
     m_InternalValue: {x: 0, y: 0}
   netObj: {fileID: 0}
@@ -344,14 +345,16 @@ MonoBehaviour:
   shootPoint: {fileID: 571409681336349975}
   Source: {fileID: 0}
   Cam: {fileID: 0}
-  gunRenderer: {fileID: 0}
+  gunRenderer: {fileID: 571409679825197984}
   gunType: 0
   shotGunPellets: 8
+  fireRate: 0
   gunAnimator: {fileID: 571409679825197989}
   gunSprites:
   - {fileID: 21300000, guid: 17b4628a3de7cab43b5e5b4a0cb86162, type: 3}
   - {fileID: 21300000, guid: 52417492f4e3c6348abc8a2c067d507d, type: 3}
   - {fileID: 21300000, guid: c30a4222ce1850644bebcf8aea75eb1f, type: 3}
+  upgrades: {fileID: 0}
 --- !u!50 &571409681555193862
 Rigidbody2D:
   serializedVersion: 4

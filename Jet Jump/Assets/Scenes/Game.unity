@@ -1711,6 +1711,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1561657256}
   - component: {fileID: 1561657257}
+  - component: {fileID: 1561657258}
   m_Layer: 0
   m_Name: GameplayManager
   m_TagString: Untagged
@@ -1748,6 +1749,28 @@ MonoBehaviour:
   PlayerCam: {fileID: 1954156274127259281, guid: 878bff45635e5b54db46877d26aa0693, type: 3}
   spawnPlayer: 0
   spawnCam: 0
+--- !u!114 &1561657258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561657255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b3789f52849a6948b63febd87a85fdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedMultiplier: 1
+  damageMultiplier: 1
+  projectileSpeedMultiplier: 1
+  fireRateMultiplier: 1
+  spreadMultiplier: 1
+  bulletsMultiplier: 1
+  healthMultiplier: 1
+  fuelMultiplier: 1
+  fuelRegainMultiplier: 1
+  update: 0
 --- !u!1 &1665479086
 GameObject:
   m_ObjectHideFlags: 0

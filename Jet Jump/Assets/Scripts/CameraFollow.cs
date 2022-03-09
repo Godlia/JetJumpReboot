@@ -16,7 +16,9 @@ public class CameraFollow : MonoBehaviour
 	}
 
 
-	
+	private void Start() {
+		target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+	}
 
 	
     void FixedUpdate()
