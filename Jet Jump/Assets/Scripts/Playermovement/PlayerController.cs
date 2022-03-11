@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using Unity.Netcode;
 
 public class PlayerController : NetworkBehaviour
@@ -38,7 +37,7 @@ public class PlayerController : NetworkBehaviour
     public float startHealAfterTime;
     private float regenCoolDown;
 
-    public Slider slider;
+    public Slider fuelSlider;
 
     public Slider healthSlider;
 
@@ -54,7 +53,6 @@ public class PlayerController : NetworkBehaviour
 
 
 
-
     void Start()
     {
         //Bare setter noen variabler
@@ -64,19 +62,17 @@ public class PlayerController : NetworkBehaviour
         SpriteRender = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
         netObj = GetComponent<NetworkObject>();
         upgrades = GameObject.Find("GameplayManager").GetComponent<Upgrades>();
-        slider = GameObject.FindGameObjectWithTag("FuelSlider").GetComponent<Slider>();
+        fuelSlider = GameObject.FindGameObjectWithTag("FuelSlider").GetComponent<Slider>();
         healthSlider = GameObject.FindGameObjectWithTag("HealthSlider").GetComponent<Slider>();
     }
 
     private void Update()
     {
-
-
         //alt medbevegelse og fuel & health-bar
         MoveInput = Input.GetAxisRaw("Horizontal");
         isFlying = Input.GetKey(KeyCode.Space);
-        slider.maxValue = maxfuel;
-        
+        fuelSlider.maxValue = maxfuel;
+
     }
 
 
@@ -85,7 +81,7 @@ public class PlayerController : NetworkBehaviour
     {
         //fysikk - Jetpack, fuel og bevegelse
 
-        slider.value = fuel;
+        fuelSlider.value = fuel;
         healthSlider.value = health;
 
         //ternary if
@@ -127,9 +123,8 @@ public class PlayerController : NetworkBehaviour
             }
         }
         else
-        {
+        {   
             Destroy(this.gameObject);
-            SceneManager.LoadScene("Main Menu");
         }
 
     }
@@ -157,5 +152,5 @@ public class PlayerController : NetworkBehaviour
         maxfuel *= upgrades.getMarkiplier("fuel");
 
     }
-}
 
+}

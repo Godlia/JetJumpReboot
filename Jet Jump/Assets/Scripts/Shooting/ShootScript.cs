@@ -15,7 +15,7 @@ public class ShootScript : MonoBehaviour
     //Finner posisjonen til løpet
     public Transform shootPoint;
     //Finner Componenten som lager lyden
-    public AudioSource Source;
+    public AudioSource shootingSound;
     //finner camera så vi kan finne hvor musepekeren er i verden
     public Camera Cam;
     //en egen datatype for å finne hvilken type våpen det er
@@ -44,18 +44,20 @@ public class ShootScript : MonoBehaviour
     public Upgrades upgrades;
 
     public AudioClip[] cockSounds;
-    [SerializeField] private AudioSource cockPlayer;
+    public AudioClip[] shootSounds;
+    public AudioSource cockPlayer;
 
     // Start is called before the first frame update
     void Start()
     {
         //Finn lydkilden før spillet starter
-        Source = GameObject.FindGameObjectWithTag("ShootSound").GetComponent<AudioSource>();
+        shootingSound = GameObject.Find("ShootSound").GetComponent<AudioSource>();
         gunType = gunShootType.Pistol;
         switchWeapon();
         //Dette vil ikke funke i multiplayer
         gunRenderer = GameObject.Find("Gun").GetComponent<SpriteRenderer>();
 
+        cockPlayer = GameObject.Find("GunCockSound").GetComponent<AudioSource>();
         gunRenderer.sprite = gunSprites[0];
         upgrades = GameObject.Find("GameplayManager").GetComponent<Upgrades>();
     }
@@ -109,56 +111,70 @@ public class ShootScript : MonoBehaviour
             {
                 Debug.Log("shot");
                 readyForNextShot = Time.time + 1 / fireRate;
-                Debug.Log(readyForNextShot);
+                Debug.Log("fireRate= " + fireRate + "| rFNS= " + readyForNextShot);
 
                 shoot();
             }
+
         }
     }
 
 
-
+    /*
+    Skyte funkjsonen
+    */
     private void shoot()
     {
-        if (gunType == gunShootType.Shotgun)
+        if (gunType == gunShootType.Shotgun) // Sjekk om våpenet er en hagle
         {
-            for (int i = 0; i < shotGunPellets; i++)
+            for (int i = 0; i < shotGunPellets; i++) //Hvor mange kuler skal bli skutt, pga oppgraderinger
             {
-                float spreadY = Random.Range(-weaponSpread, weaponSpread);
-                Quaternion spread = Quaternion.Euler(0f, 0f, transform.eulerAngles.z + Random.Range(-spreadY, spreadY));
-                GameObject bullet = Instantiate(Bullet, shootPoint.position, spread);
-                Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
-                bullet.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(direction.x, direction.y) * bulletspeed);
-                Destroy(bullet, 0.5f);
+                doShoot();
             }
-            gunAnimator.SetTrigger("Shoot");
-            Source.Play();
-
         }
         else
         {
-            float spreadY = Random.Range(-weaponSpread, weaponSpread);
-            Quaternion spread = Quaternion.Euler(0f, 0f, transform.eulerAngles.z + Random.Range(-spreadY, spreadY));
-            GameObject bullet = Instantiate(Bullet, shootPoint.position, spread);
-            Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
-            bullet.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(direction.x * bulletspeed, direction.y * bulletspeed));
-            Destroy(bullet, 2f);
-            gunAnimator.SetTrigger("Shoot");
-            Source.Play();
+            doShoot();
         }
     }
+
+
+    void doShoot()
+    {
+        float spreadY = Random.Range(-weaponSpread, weaponSpread);
+        Quaternion spread = Quaternion.Euler(0f, 0f, transform.eulerAngles.z + Random.Range(-spreadY, spreadY));
+        GameObject bullet = Instantiate(Bullet, shootPoint.position, spread);
+        Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
+        bullet.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(direction.x * bulletspeed, direction.y * bulletspeed));
+        if (gunType == gunShootType.Shotgun)
+        {
+            Destroy(bullet, 0.5f);
+        }
+        else
+        {
+            Destroy(bullet, 2f);
+        }
+        gunAnimator.SetTrigger("Shoot");
+        shootingSound.Play();
+    }
+
+
+
     void switchWeapon()
     {
+
+        //custom datatype for å holde styr på våpenene og det som gjør de forskjellige
         switch (gunType)
         {
             case gunShootType.Pistol:
-                cockPlayer.clip = cockSounds[0];
-                cockPlayer.Play();
-                fireRate = 1f;
-                weaponSpread = 0.1f;
-                bulletspeed = 1f;
-                gunRenderer.sprite = gunSprites[0];
-                gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(2, 2, 1);
+                cockPlayer.clip = cockSounds[0]; //lag ritkig utrekkslyd
+                cockPlayer.Play(); //spill lyden
+                fireRate = 1f; //pistolen skyter hvert sekund
+                weaponSpread = 0.1f; //pistolen har en spread på 0.1
+                bulletspeed = 1f; //pistolen skyter med 1 enhet per sekund
+                gunRenderer.sprite = gunSprites[0]; //sett pistolens sprite i gun, via spritearray
+                gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(2, 2, 1); //gjør den 2x så stor
+                shootingSound.clip = shootSounds[0]; //sett lyden til pistolens skudd
                 break;
             case gunShootType.Rifle:
                 cockPlayer.clip = cockSounds[1];
@@ -168,6 +184,7 @@ public class ShootScript : MonoBehaviour
                 bulletspeed = 1f;
                 gunRenderer.sprite = gunSprites[1];
                 gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(3, 3, 1);
+                shootingSound.clip = shootSounds[1];
                 break;
             case gunShootType.Shotgun:
                 cockPlayer.clip = cockSounds[2];
@@ -177,8 +194,10 @@ public class ShootScript : MonoBehaviour
                 bulletspeed = 1f;
                 gunRenderer.sprite = gunSprites[2];
                 gunRenderer.GetComponentInParent<Transform>().localScale = new Vector3(3, 3, 1);
+                shootingSound.clip = shootSounds[2];
                 break;
         }
+        readyForNextShot = Time.time + 1 / fireRate;
     }
 
     public void Upgrade()

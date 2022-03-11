@@ -28,6 +28,7 @@ public class Upgrades : MonoBehaviour
 
     void Update() {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+        //alle elementer som kan bli oppgradert blir kalt når update er true, 
         if(update) {
             player.GetComponent<ShootScript>().Upgrade();
             player.GetComponent<PlayerController>().Upgrade();
@@ -35,6 +36,8 @@ public class Upgrades : MonoBehaviour
         }
     }
 
+
+    //basically en API for å oppgradere spilleren
     public float getMarkiplier(string multiplierName) {
         switch(multiplierName) {
             case "speed": //implemented

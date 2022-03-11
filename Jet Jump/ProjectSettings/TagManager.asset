@@ -20,6 +20,7 @@ TagManager:
   - HUD
   - OtherPlayer
   - ScoreCounter
+  - PauseMenu
   layers:
   - Default
   - TransparentFX
