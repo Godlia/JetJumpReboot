@@ -104,15 +104,12 @@ public class ShootScript : MonoBehaviour
 
 
 
-
+        //handler firerate 
         if (Input.GetMouseButton(0))
         {
             if (Time.time > readyForNextShot)
             {
-                Debug.Log("shot");
                 readyForNextShot = Time.time + 1 / fireRate;
-                Debug.Log("fireRate= " + fireRate + "| rFNS= " + readyForNextShot);
-
                 shoot();
             }
 
@@ -121,12 +118,13 @@ public class ShootScript : MonoBehaviour
 
 
     /*
-    Skyte funkjsonen
+    Gjør at du kan skyte som det våpenet du har (i.e. hagle skyter flere kuler)
     */
     private void shoot()
     {
         if (gunType == gunShootType.Shotgun) // Sjekk om våpenet er en hagle
         {
+            //flere kuler for hagle
             for (int i = 0; i < shotGunPellets; i++) //Hvor mange kuler skal bli skutt, pga oppgraderinger
             {
                 doShoot();
@@ -134,6 +132,7 @@ public class ShootScript : MonoBehaviour
         }
         else
         {
+            //1 kule
             doShoot();
         }
     }
@@ -141,11 +140,19 @@ public class ShootScript : MonoBehaviour
 
     void doShoot()
     {
+        //kanskje den mest kompliserte funksjonen i hele spillet
+        //definerer en float som er en random verdi mellom våpenets spreadverdi
         float spreadY = Random.Range(-weaponSpread, weaponSpread);
+        //quaternion er en 4-dimensjonal datatype for rotasjon, så vi lager en tilfeldig spread på z-aksen som kan påføres når kulen blir skapt
         Quaternion spread = Quaternion.Euler(0f, 0f, transform.eulerAngles.z + Random.Range(-spreadY, spreadY));
+        //Vi skaper en kule fra prefaben, som skapes på posisjonen "shootPoint" som er løpet til våpenet,
+        // og påfører rotasjonen på kulen, så alle kuler spawner med en tilfeldig rotasjon
         GameObject bullet = Instantiate(Bullet, shootPoint.position, spread);
+        //ignorer kollisjon mellom kuler
         Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
+        //Gi kulen en hastighet i den lokale vectoren, så den beveger seg på sin egen x-akse
         bullet.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(direction.x * bulletspeed, direction.y * bulletspeed));
+        
         if (gunType == gunShootType.Shotgun)
         {
             Destroy(bullet, 0.5f);
