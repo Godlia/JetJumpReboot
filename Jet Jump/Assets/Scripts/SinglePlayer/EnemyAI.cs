@@ -27,6 +27,14 @@ public class EnemyAI : MonoBehaviour
         PlayerT = Player.GetComponent<Transform>();
         fireRate = 2f;
         nextFire = Time.time;
+        if(Random.Range(0,2) == 0)
+        {
+            ranged = true;
+        }
+        else
+        {
+            ranged = false;
+        }
     }
 
     // Update is called once per frame

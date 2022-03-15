@@ -307,7 +307,7 @@ MonoBehaviour:
   consumption: 0.1
   maxhealth: 10
   startHealAfterTime: 3
-  slider: {fileID: 0}
+  fuelSlider: {fileID: 0}
   healthSlider: {fileID: 0}
   upgrades: {fileID: 0}
   networkPosition:
@@ -385,7 +385,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &571409681555193864
 MonoBehaviour:

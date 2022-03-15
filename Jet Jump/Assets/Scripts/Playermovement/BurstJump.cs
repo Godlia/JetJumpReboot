@@ -42,17 +42,11 @@ public class BurstJump : MonoBehaviour
         {
             useJump();
         }
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
         if (isCooldown)
         {
             ApplyCoolDown();
         }
     }
-
 
     void ApplyCoolDown()
     {
@@ -83,6 +77,7 @@ public class BurstJump : MonoBehaviour
         else
         {
             rb.AddForce(Vector2.up * burstjumppower * Time.deltaTime, ForceMode2D.Impulse);
+            Debug.Log("Burst: " + Vector2.up * burstjumppower * Time.deltaTime);
             isCooldown = true;
             textCooldown.gameObject.SetActive(true);
             coolDownTimer = coolDownTime;

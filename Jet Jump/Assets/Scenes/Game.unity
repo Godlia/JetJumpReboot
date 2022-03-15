@@ -906,6 +906,7 @@ MonoBehaviour:
   PlayerCam: {fileID: 1954156274127259281, guid: 878bff45635e5b54db46877d26aa0693, type: 3}
   spawnPlayer: 1
   spawnCam: 0
+  makeRRespawnPlayer: 0
 --- !u!1 &609099517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2368,6 +2369,7 @@ MonoBehaviour:
   PlayerCam: {fileID: 1954156274127259281, guid: 878bff45635e5b54db46877d26aa0693, type: 3}
   spawnPlayer: 0
   spawnCam: 0
+  makeRRespawnPlayer: 1
 --- !u!114 &1561657258
 MonoBehaviour:
   m_ObjectHideFlags: 0
