@@ -42,8 +42,8 @@ GameObject:
   - component: {fileID: 3334930061069841551}
   - component: {fileID: 3334930061069841550}
   - component: {fileID: 3334930061069841585}
-  - component: {fileID: 3334930061069841584}
   - component: {fileID: 3334930061069841587}
+  - component: {fileID: 8017126595744879329}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -148,28 +148,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 583668092346350320, guid: 54760d2bb2812024d9839d646ba97e69, type: 3}
   health: 9
-  bulldmg: 5
   Player: {fileID: 0}
   PlayerT: {fileID: 0}
   ThisT: {fileID: 0}
   scoreAward: 100
   ranged: 0
---- !u!58 &3334930061069841584
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3334930061069841586}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  visionRange: 15
 --- !u!50 &3334930061069841587
 Rigidbody2D:
   serializedVersion: 4
@@ -191,3 +175,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &8017126595744879329
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3334930061069841586}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0066177845, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.5, y: 1.5}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.0191226, y: 1.5}
+  m_EdgeRadius: 0

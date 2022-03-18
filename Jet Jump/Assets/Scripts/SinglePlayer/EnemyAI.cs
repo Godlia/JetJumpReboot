@@ -18,6 +18,8 @@ public class EnemyAI : MonoBehaviour
     private int scoreAward;
     public bool ranged;
 
+     [SerializeField] private float visionRange;
+
 
     // Use this for initialization
     void Start()
@@ -27,7 +29,7 @@ public class EnemyAI : MonoBehaviour
         PlayerT = Player.GetComponent<Transform>();
         fireRate = 2f;
         nextFire = Time.time;
-        if(Random.Range(0,2) == 0)
+        if (Random.Range(0, 2) == 0)
         {
             ranged = true;
         }
@@ -42,11 +44,21 @@ public class EnemyAI : MonoBehaviour
     {
         if (ranged)
         {
-            CheckIfTimeToFire();
-        }
-        if (ThisT.position.y < -40) { Destroy(this.gameObject); }
+            if (Physics2D.Raycast(ThisT.position, (PlayerT.position - ThisT.position).normalized, visionRange))
+            {
+                if (Physics2D.Raycast(ThisT.position, (PlayerT.position - ThisT.position).normalized, visionRange).collider.gameObject.tag == "Player")
+                {
+                    CheckIfTimeToFire();
+                }
+            }
 
-        if(health <= 0)
+        }
+        if (ThisT.position.y < -40)
+        {
+            Destroy(this.gameObject);
+        }
+
+        if (health <= 0)
         {
             calculatePoints();
             Destroy(this.gameObject);
@@ -73,7 +85,8 @@ public class EnemyAI : MonoBehaviour
     }
 
 
-    void Damage(float dmg) {
+    void Damage(float dmg)
+    {
         health -= dmg;
     }
 
