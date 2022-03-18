@@ -138,7 +138,7 @@ public class ShootScript : MonoBehaviour
     }
 
 
-    void doShoot()
+    private void doShoot()
     {
         //kanskje den mest kompliserte funksjonen i hele spillet
         //definerer en float som er en random verdi mellom våpenets spreadverdi
