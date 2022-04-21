@@ -1,4 +1,5 @@
 # Jet Jump
+### All my code is Open-Source, just credit if you do use it :D
 ## Hva er det?
 Jet Jump er et lite spill jeg bestemte meg å lage for at jeg skulle lære meg koding. 
 
