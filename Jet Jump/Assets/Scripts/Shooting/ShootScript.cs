@@ -6,60 +6,53 @@ public class ShootScript : MonoBehaviour
 
     //Definerer posisjonen til våpenet
     public Transform Gun;
-    //Henter ut prefaben til kulen
     public GameObject Bullet;
-    //Definerer farten til kulen
     public float bulletspeed;
-    //definerer hvilken todimensjonal retning kulen skal ha
     private Vector2 direction;
-    //Finner posisjonen til løpet
     public Transform shootPoint;
-    //Finner Componenten som lager lyden
     public AudioSource shootingSound;
-    //finner camera så vi kan finne hvor musepekeren er i verden
     public Camera Cam;
-    //en egen datatype for å finne hvilken type våpen det er
-
-    [SerializeField]
-    private SpriteRenderer gunRenderer;
+    [SerializeField] private SpriteRenderer gunRenderer;
+    //Egen datatype for våpen
     public enum gunShootType
     {
         Pistol,
         Rifle,
         Shotgun
     }
-    //gjør datatypen til en variabel
     public gunShootType gunType;
-    //Definerer hvor lang tid mellom skudd
     public int shotGunPellets;
     [SerializeField] private float fireRate;
-    //en timestamp som blir brukt sammen med fireRate
     private float readyForNextShot;
-    //Gir tilgang til animasjonen til pistolen, i.e rekyl
     public Animator gunAnimator;
     private float weaponSpread;
 
-    [SerializeField]
-    private Sprite[] gunSprites;
+    [SerializeField] private Sprite[] gunSprites;
     public Upgrades upgrades;
 
     public AudioClip[] cockSounds;
     public AudioClip[] shootSounds;
     public AudioSource cockPlayer;
 
+
+    //Upgrade variabler
+    private float effFireRate;
+    private float effBulletSpeed;
+    private float effPellets;
+
     // Start is called before the first frame update
     void Start()
     {
-        //Finn lydkilden før spillet starter
+        //Finn gameObjectetene og componentene som blir brukt
         shootingSound = GameObject.Find("ShootSound").GetComponent<AudioSource>();
         gunType = gunShootType.Pistol;
-        switchWeapon();
-        //Dette vil ikke funke i multiplayer
         gunRenderer = GameObject.Find("Gun").GetComponent<SpriteRenderer>();
-
         cockPlayer = GameObject.Find("GunCockSound").GetComponent<AudioSource>();
         gunRenderer.sprite = gunSprites[0];
         upgrades = GameObject.Find("GameplayManager").GetComponent<Upgrades>();
+
+        switchWeapon();
+        Upgrade();
     }
 
 
@@ -75,9 +68,11 @@ public class ShootScript : MonoBehaviour
             Cam = GameObject.FindGameObjectWithTag("PlayerCamera").GetComponent<Camera>();
         }
 
-        //Posisjonen til muspekeren i spillverdenen til en Vector2
+        //Posisjonen til muspekeren i spillverdenen til en normalisert Vector2
         Vector2 MousePos = Cam.ScreenToWorldPoint(Input.mousePosition);
         direction = MousePos - (Vector2)this.transform.position;
+        direction.Normalize();
+        Upgrade();
 
 
 
@@ -104,13 +99,13 @@ public class ShootScript : MonoBehaviour
 
 
 
-        //handler firerate 
+        //Håndterer firerate
         if (Input.GetMouseButton(0))
         {
             if (Time.time > readyForNextShot)
             {
-                readyForNextShot = Time.time + 1 / fireRate;
-                shoot();
+                readyForNextShot = Time.time + 1 / effFireRate;
+                preShoot();
             }
 
         }
@@ -120,12 +115,12 @@ public class ShootScript : MonoBehaviour
     /*
     Gjør at du kan skyte som det våpenet du har (i.e. hagle skyter flere kuler)
     */
-    private void shoot()
+    private void preShoot()
     {
         if (gunType == gunShootType.Shotgun) // Sjekk om våpenet er en hagle
         {
             //flere kuler for hagle
-            for (int i = 0; i < shotGunPellets; i++) //Hvor mange kuler skal bli skutt, pga oppgraderinger
+            for (int i = 0; i < effPellets; i++) //Hvor mange kuler skal bli skutt, pga oppgraderinger
             {
                 doShoot();
             }
@@ -140,18 +135,12 @@ public class ShootScript : MonoBehaviour
 
     private void doShoot()
     {
-        //kanskje den mest kompliserte funksjonen i hele spillet
-        //definerer en float som er en random verdi mellom våpenets spreadverdi
+        //instansier ny kule med tilfeldig z-rotasjon for spredning
         float spreadY = Random.Range(-weaponSpread, weaponSpread);
-        //quaternion er en 4-dimensjonal datatype for rotasjon, så vi lager en tilfeldig spread på z-aksen som kan påføres når kulen blir skapt
         Quaternion spread = Quaternion.Euler(0f, 0f, transform.eulerAngles.z + Random.Range(-spreadY, spreadY));
-        //Vi skaper en kule fra prefaben, som skapes på posisjonen "shootPoint" som er løpet til våpenet,
-        // og påfører rotasjonen på kulen, så alle kuler spawner med en tilfeldig rotasjon
         GameObject bullet = Instantiate(Bullet, shootPoint.position, spread);
-        //ignorer kollisjon mellom kuler
-        Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
-        //Gi kulen en hastighet i den lokale vectoren, så den beveger seg på sin egen x-akse
-        bullet.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(direction.x * bulletspeed, direction.y * bulletspeed));
+        bullet.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(direction.x * effBulletSpeed, direction.y * bulletspeed));
+
         
         if (gunType == gunShootType.Shotgun)
         {
@@ -170,7 +159,9 @@ public class ShootScript : MonoBehaviour
     void switchWeapon()
     {
 
-        //custom datatype for å holde styr på våpenene og det som gjør de forskjellige
+        //custom datatype for å holde styr på våpenene og det som gjør de forskjellige og lett å implementere nye våpen
+        //Kan bruke OOP, men tør ikke endre systemet
+        //Index [0] = Pistol, [1] = Rifle, [2] = Shotgun
         switch (gunType)
         {
             case gunShootType.Pistol:
@@ -204,13 +195,13 @@ public class ShootScript : MonoBehaviour
                 shootingSound.clip = shootSounds[2];
                 break;
         }
-        readyForNextShot = Time.time + 1 / fireRate;
+        readyForNextShot = Time.time + 1 / effFireRate;
     }
 
     public void Upgrade()
     {
-        fireRate *= upgrades.getMarkiplier("fireRate");
-        bulletspeed *= upgrades.getMarkiplier("bulletSpeed");
-        shotGunPellets += Mathf.RoundToInt(upgrades.getMarkiplier("bullets")) - 1;
+        effFireRate = fireRate * upgrades.getMarkiplier("fireRate");
+        effBulletSpeed = bulletspeed * upgrades.getMarkiplier("bulletSpeed");
+        effPellets = shotGunPellets + Mathf.RoundToInt(upgrades.getMarkiplier("bullets")) - 1;
     }
 }

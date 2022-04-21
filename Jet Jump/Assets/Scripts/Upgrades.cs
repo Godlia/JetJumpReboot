@@ -26,15 +26,6 @@ public class Upgrades : MonoBehaviour
 
     public bool update;
 
-    void Update() {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        //alle elementer som kan bli oppgradert blir kalt når update er true, 
-        if(update) {
-            player.GetComponent<ShootScript>().Upgrade();
-            player.GetComponent<PlayerController>().Upgrade();
-            update = false;
-        }
-    }
 
 
     //basically en API for å oppgradere spilleren

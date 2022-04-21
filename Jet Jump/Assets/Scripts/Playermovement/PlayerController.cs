@@ -52,6 +52,13 @@ public class PlayerController : NetworkBehaviour
     private Component netObj;
 
 
+    //effective variables
+    private float effMoveSpeed;
+    private float effmaxhealth;
+    private float effmaxfuel;
+
+
+
 
     void Start()
     {
@@ -64,10 +71,12 @@ public class PlayerController : NetworkBehaviour
         upgrades = GameObject.Find("GameplayManager").GetComponent<Upgrades>();
         fuelSlider = GameObject.FindGameObjectWithTag("FuelSlider").GetComponent<Slider>();
         healthSlider = GameObject.FindGameObjectWithTag("HealthSlider").GetComponent<Slider>();
+        Upgrade();
     }
 
     private void Update()
     {
+        Upgrade();
         //alt medbevegelse og fuel & health-bar
         MoveInput = Input.GetAxisRaw("Horizontal");
         isFlying = Input.GetKey(KeyCode.Space);
@@ -100,9 +109,9 @@ public class PlayerController : NetworkBehaviour
             rb.velocity = new Vector3(0, 0, 0);
         }
 
-        fuel = fuel > maxfuel ? maxfuel : fuel;
+        fuel = fuel > effmaxfuel ? effmaxfuel : fuel;
 
-        playerpos.transform.Translate(MoveInput * moveSpeed * Time.deltaTime, 0, 0);
+        playerpos.transform.Translate(MoveInput * effMoveSpeed * Time.deltaTime, 0, 0);
 
 
         if (isFlying && fuel >= 0.2f)
@@ -113,7 +122,7 @@ public class PlayerController : NetworkBehaviour
 
 
 
-        health = health > maxhealth ? maxhealth : health;
+        health = health > effmaxhealth ? effmaxhealth : health;
 
         if (health > 0)
         {
@@ -131,7 +140,7 @@ public class PlayerController : NetworkBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag.Equals("Enemy") || collision.gameObject.tag.Equals("Bullet") || collision.gameObject.tag.Equals("EnemyBullet"))
+        if (collision.gameObject.tag.Equals("Enemy") || collision.gameObject.tag.Equals("EnemyBullet"))
         {
             Damage();
         }
@@ -147,9 +156,9 @@ public class PlayerController : NetworkBehaviour
 
     public void Upgrade()
     {
-        moveSpeed *= upgrades.getMarkiplier("speed");
-        maxhealth *= upgrades.getMarkiplier("health");
-        maxfuel *= upgrades.getMarkiplier("fuel");
+        effMoveSpeed = moveSpeed * upgrades.getMarkiplier("speed");
+        effmaxhealth = maxhealth * upgrades.getMarkiplier("health");
+        effmaxfuel = maxfuel* upgrades.getMarkiplier("fuel");
 
     }
 
