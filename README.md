@@ -17,4 +17,4 @@ Spillet skal hovedsakelig være liknende en Roguelike platformer, hvor du må kj
 - [ ] Mer kunst og bakgrunner
 - [ ] Score-counter og leaderboard
 ### Fixes
-- [ ] Fjerne at distansen musen er fra spilleren bestemmer kulens hastighet
+- [x] Fjerne at distansen musen er fra spilleren bestemmer kulens hastighet
