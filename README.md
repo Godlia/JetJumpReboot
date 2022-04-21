@@ -1,4 +1,6 @@
 # Jet Jump
+### All my code is Open-Source, just credit if you do use it :D
+### FAQ https://github.com/Godlia/JetJumpReboot/wiki/FAQ---Frequently-Asked-Questions
 ## Hva er det?
 Jet Jump er et lite spill jeg bestemte meg å lage for at jeg skulle lære meg koding. 
 
@@ -17,4 +19,4 @@ Spillet skal hovedsakelig være liknende en Roguelike platformer, hvor du må kj
 - [ ] Mer kunst og bakgrunner
 - [ ] Score-counter og leaderboard
 ### Fixes
-- [ ] Fjerne at distansen musen er fra spilleren bestemmer kulens hastighet
+- [x] Fjerne at distansen musen er fra spilleren bestemmer kulens hastighet
