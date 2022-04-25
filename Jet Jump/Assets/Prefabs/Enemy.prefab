@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3334930060985857779}
-  m_Layer: 9
-  m_Name: GameObject
+  m_Layer: 2
+  m_Name: PatrolGroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3334930061069841585}
   - component: {fileID: 3334930061069841587}
   - component: {fileID: 8017126595744879329}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}

@@ -72,12 +72,12 @@ public class BurstJump : MonoBehaviour
     {
         if (isCooldown)
         {
-
+            //Cooldown er ikke ferdig
         }
         else
         {
+            rb.velocity = new Vector2(rb.velocity.x, 0f);
             rb.AddForce(Vector2.up * burstjumppower * Time.deltaTime, ForceMode2D.Impulse);
-            Debug.Log("Burst: " + Vector2.up * burstjumppower * Time.deltaTime);
             isCooldown = true;
             textCooldown.gameObject.SetActive(true);
             coolDownTimer = coolDownTime;

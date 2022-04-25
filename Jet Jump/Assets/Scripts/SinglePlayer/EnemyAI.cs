@@ -18,7 +18,7 @@ public class EnemyAI : MonoBehaviour
     private int scoreAward;
     public bool ranged;
 
-     [SerializeField] private float visionRange;
+    [SerializeField] private float visionRange;
 
 
     // Use this for initialization
@@ -42,22 +42,27 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //
         if (ranged)
         {
-            if (Physics2D.Raycast(ThisT.position, (PlayerT.position - ThisT.position).normalized, visionRange))
+            //Lag en raycast fra fienden mot spilleren, om den treffer spilleren, så skal den skyte
+            RaycastHit2D hit;
+            hit = Physics2D.Raycast(ThisT.position, new Vector2(PlayerT.position.x - ThisT.position.x, PlayerT.position.y - ThisT.position.y).normalized, visionRange);
+            Debug.Log(hit.collider.gameObject.tag);
+            Debug.DrawRay(ThisT.position, new Vector2(PlayerT.position.x - ThisT.position.x, PlayerT.position.y - ThisT.position.y).normalized * visionRange, Color.red, 0.8f);
+            if (hit.collider == null || hit.collider.gameObject.tag == "Player")
             {
-                if (Physics2D.Raycast(ThisT.position, (PlayerT.position - ThisT.position).normalized, visionRange).collider.gameObject.tag == "Player")
-                {
-                    CheckIfTimeToFire();
-                }
+                CheckIfTimeToFire();
             }
-
         }
+
+        //Hvis den faller av kartet, så blir den fjernet
         if (ThisT.position.y < -40)
         {
             Destroy(this.gameObject);
         }
 
+        //Hvis den dør, så blir den fjernet
         if (health <= 0)
         {
             calculatePoints();
@@ -90,6 +95,7 @@ public class EnemyAI : MonoBehaviour
         health -= dmg;
     }
 
+    //Funksjon som regner ut poeng for å drepe fienden
     void calculatePoints()
     {
         float points = 0;
