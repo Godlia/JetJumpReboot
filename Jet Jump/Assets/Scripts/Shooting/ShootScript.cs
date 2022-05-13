@@ -140,7 +140,7 @@ public class ShootScript : MonoBehaviour
         Quaternion spread = Quaternion.Euler(0f, 0f, transform.eulerAngles.z + Random.Range(-spreadY, spreadY));
         GameObject bullet = Instantiate(Bullet, shootPoint.position, spread);
         bullet.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(direction.x * effBulletSpeed, direction.y * bulletspeed));
-
+        
         
         if (gunType == gunShootType.Shotgun)
         {

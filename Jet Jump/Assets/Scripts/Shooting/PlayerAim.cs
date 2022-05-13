@@ -10,7 +10,6 @@ public class PlayerAim : MonoBehaviour
     private Transform aimTransform;
     private Animator aimAnimator;
     private float angle;
-
     public Camera cam;
 
     void Start()

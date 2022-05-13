@@ -48,7 +48,6 @@ public class EnemyAI : MonoBehaviour
             //Lag en raycast fra fienden mot spilleren, om den treffer spilleren, så skal den skyte
             RaycastHit2D hit;
             hit = Physics2D.Raycast(ThisT.position, new Vector2(PlayerT.position.x - ThisT.position.x, PlayerT.position.y - ThisT.position.y).normalized, visionRange);
-            Debug.Log(hit.collider.gameObject.tag);
             Debug.DrawRay(ThisT.position, new Vector2(PlayerT.position.x - ThisT.position.x, PlayerT.position.y - ThisT.position.y).normalized * visionRange, Color.red, 0.8f);
             if (hit.collider == null || hit.collider.gameObject.tag == "Player")
             {
@@ -103,7 +102,6 @@ public class EnemyAI : MonoBehaviour
         Score score = GameObject.FindGameObjectWithTag("ScoreCounter").GetComponent<Score>();
 
         float dist = Vector3.Distance(PlayerT.position, ThisT.position);
-        Debug.Log("Distance: " + dist);
         if (dist > 10)
         {
             points *= 1.25f;
