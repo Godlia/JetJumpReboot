@@ -729,14 +729,14 @@ RectTransform:
   m_GameObject: {fileID: 616004111}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.55001, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1116831346}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.23490143, y: 0.11289978}
+  m_AnchoredPosition: {x: 0.23490906, y: 0.11289978}
   m_SizeDelta: {x: 11.5562, y: -1.8555}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &616004113
@@ -1302,7 +1302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DontDestroy: 1
   RunInBackground: 1
-  LogLevel: 0
+  LogLevel: 1
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1299636479}
@@ -1318,11 +1318,6 @@ MonoBehaviour:
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
-    - Override: 0
-      Prefab: {fileID: 9163928097170828850, guid: d0755231ee672a2419f944507fcec5f3, type: 3}
-      SourcePrefabToOverride: {fileID: 9163928097170828850, guid: d0755231ee672a2419f944507fcec5f3, type: 3}
-      SourceHashToOverride: 0
-      OverridingTargetPrefab: {fileID: 571409681555193856, guid: 0518453d8fcd87d41b16be6fbb87a420, type: 3}
     TickRate: 60
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
@@ -1832,6 +1827,7 @@ MonoBehaviour:
   PlayerCam: {fileID: 1954156274127259281, guid: 878bff45635e5b54db46877d26aa0693, type: 3}
   spawnPlayer: 0
   spawnCam: 0
+  makeRRespawnPlayer: 0
 --- !u!1 &1665479086
 GameObject:
   m_ObjectHideFlags: 0
@@ -1926,6 +1922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: Main Menu
   Key: 27
+  loadWithNetcode: 0
 --- !u!1 &1732145852
 GameObject:
   m_ObjectHideFlags: 0
@@ -2011,7 +2008,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 10
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2293,7 +2290,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 10
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
