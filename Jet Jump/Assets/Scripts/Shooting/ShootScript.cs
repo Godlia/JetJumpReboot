@@ -109,6 +109,12 @@ public class ShootScript : MonoBehaviour
             }
 
         }
+        /*
+        if(gunType == gunShootType.Shotgun) {
+            if(Time.time > readyForNextShot - 0.1f) {
+                cockPlayer.Play();
+            }
+        }*/
     }
 
 
@@ -123,6 +129,7 @@ public class ShootScript : MonoBehaviour
             for (int i = 0; i < effPellets; i++) //Hvor mange kuler skal bli skutt, pga oppgraderinger
             {
                 doShoot();
+                StartCoroutine(waitCoRout(0.4f));
             }
         }
         else
@@ -131,8 +138,16 @@ public class ShootScript : MonoBehaviour
             doShoot();
         }
     }
+    private IEnumerator waitCoRout(float time)
+    {
+        yield return new WaitForSeconds(time);
+        cockPlayer.Play();
+        
+    }
 
-
+    /**
+     * Shoots a shot
+     */
     private void doShoot()
     {
         //instansier ny kule med tilfeldig z-rotasjon for spredning

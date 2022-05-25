@@ -19,6 +19,5 @@ public class GameplayManager : MonoBehaviour
         players = new ArrayList();
         GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
         playerCount = playerObjects.Length;
-
     }
 }

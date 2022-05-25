@@ -528,7 +528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settingsCanvas: {fileID: 0}
-  doCRT: 0
+  doCRT: 1
   crtEffect: {fileID: 0}
 --- !u!4 &187306469
 Transform:
