@@ -574,8 +574,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1878734312}
         m_TargetAssemblyTypeName: LoadGameOnPress, Assembly-CSharp
-        m_MethodName: LoadSceneFromButton
-        m_Mode: 5
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
