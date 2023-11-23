@@ -34,7 +34,7 @@ public class PauseSettings : MonoBehaviour
                 Debug.Log("Settings Opened");
             }
         }
-        Debug.Log(doCRT + " , " + PlayerPrefs.GetInt("CRT"));
+        //Debug.Log(doCRT + " , " + PlayerPrefs.GetInt("CRT"));
     }
 
     public void SetCRT(bool value) {
